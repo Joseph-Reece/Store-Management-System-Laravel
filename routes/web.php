@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\ClientsController;
 use Illuminate\Support\Facades\Route;
 
 
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GearsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +28,18 @@ Route::get('/', [DashboardController::class, 'homePage'])->name('home');
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
-    Route::resource('products', ProductController::class);
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+//...............................Gears Routes.....................//
+Route::group(['prefix'=>'gear', 'middleware' => ['auth']], function() {
+    Route::get('/index', [GearsController::class, 'index'])->name('gear.index');
+    Route::delete('/{id}', [GearsController::class, 'destroy'])->name('gear.destroy');
+});
+
+//...............................Clients Routes.....................//
+Route::group(['prefix'=>'clients', 'middleware' => ['auth']], function() {
+    Route::get('/index', [ClientsController::class, 'index'])->name('clients.index');
+});
 
 require __DIR__.'/auth.php';

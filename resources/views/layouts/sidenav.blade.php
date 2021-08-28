@@ -7,14 +7,14 @@
              @can('user-create')
              <li><a class="menu-item" href="#"><i class="material-icons">perm_data_setting</i><span data-i18n="Gear">Gear Management</span></a>
                 <ul class="menu-content">
-                    <li class=""><a class="menu-item " href=""><i class="material-icons">settings</i><span data-i18n="Manage Gear">Manage Gear</span></a>
+                    <li class="{{Request::routeIs('gear.index') ? 'active' : ''}}"><a class="menu-item " href="{{route('gear.index')}}"><i class="material-icons">settings</i><span data-i18n="Manage Gear">Manage Gear</span></a>
                     </li>
                     <li class=""><a class="menu-item" href=""><i class="material-icons">help_outline</i><span data-i18n="Gear Requests">Gear Requests</span></a>
                     </li>
                 </ul>
             </li>
             @endcan
-            <li class=" nav-item "><a href=""><i class="material-icons">dvr</i><span class="menu-title" data-i18n="Calendar">Students</span></a>
+            <li class=" nav-item {{Request::routeIs('clients.index') ? 'active' : ''}} "><a href="{{route('clients.index')}}"><i class="material-icons">dvr</i><span class="menu-title" data-i18n="Calendar">Students</span></a>
             {{-- <li class=" nav-item {{Request::routeIs('truck.index') ? 'active' : ''}}"><a href="{{route('truck.index')}}"><i class="material-icons">dvr</i><span class="menu-title" data-i18n="Calendar">Trucks</span></a> --}}
             </li>
             <li class=" nav-item "><a href=""><i class="material-icons">playlist_add_check</i><span class="menu-title" data-i18n="Calendar">Reports</span></a>
