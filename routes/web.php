@@ -20,9 +20,11 @@ use App\Http\Controllers\GearsController;
 |
 */
 
+//...............................Admin Dashboard and Landing Page Routes.....................//
 
 Route::get('/', [DashboardController::class, 'homePage'])->name('home');
 
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 //...............................Spatie Roles and Permissions Routes.....................//
 Route::group(['middleware' => ['auth']], function() {
@@ -30,10 +32,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 //...............................Gears Routes.....................//
 Route::group(['prefix'=>'gear', 'middleware' => ['auth']], function() {
     Route::get('/index', [GearsController::class, 'index'])->name('gear.index');
+    Route::post('/store', [GearsController::class, 'store'])->name('gear.store');
+    Route::get('/{slug}', [GearsController::class, 'show'])->name('gear.show');
+    Route::put('/{id}', [GearsController::class, 'edit'])->name('gear.edit');
     Route::delete('/{id}', [GearsController::class, 'destroy'])->name('gear.destroy');
 });
 
