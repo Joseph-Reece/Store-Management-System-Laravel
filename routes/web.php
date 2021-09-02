@@ -37,7 +37,7 @@ Route::group(['prefix'=>'gear', 'middleware' => ['auth']], function() {
     Route::get('/index', [GearsController::class, 'index'])->name('gear.index');
     Route::post('/store', [GearsController::class, 'store'])->name('gear.store');
     Route::get('/{slug}', [GearsController::class, 'show'])->name('gear.show');
-    Route::put('/{id}', [GearsController::class, 'edit'])->name('gear.edit');
+    Route::get('/edit/{slug}', [GearsController::class, 'edit'])->name('gear.edit');
     Route::delete('/{id}', [GearsController::class, 'destroy'])->name('gear.destroy');
 });
 

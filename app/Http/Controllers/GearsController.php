@@ -106,9 +106,11 @@ class GearsController extends Controller
      * @param  \App\Models\Gears  $gears
      * @return \Illuminate\Http\Response
      */
-    public function edit(Gears $gears)
+    public function edit(Gears $gears, $slug)
     {
         //
+        $gear = Gears::where('slug', $slug)->get();
+        dd($gear[0]->name);
     }
 
     /**

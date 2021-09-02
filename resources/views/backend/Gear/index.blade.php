@@ -68,7 +68,7 @@
                                                         <td>
                                                             <a class="btn btn-info" href="{{ route('gear.show',$gear->slug) }}">Show</a>
                                                             @can('gear-edit')
-                                                                <a class="btn btn-primary" href="{{ route('gear.edit',$gear->id) }}">Edit</a>
+                                                                <a class="btn btn-primary" id="editGear" href="#">Edit</a>
                                                             @endcan
                                                             @can('gear-delete')
                                                             <form class="form" method="POST" action="{{ route('gear.destroy', $gear->id)}}" style="display: inline">
@@ -209,6 +209,8 @@
         </div>
     </div>
 
+    @include('backend.Gear.components.editModal')
+
     <script src="/app-assets/js/core/libraries/jquery.min.js"></script>
 
     <script>
@@ -259,7 +261,7 @@
            $('#description').val(description);
 
 
-           $('#gear_info').modal('show');
+           $('#gear_edit').modal('show');
        });
    </script>
 
