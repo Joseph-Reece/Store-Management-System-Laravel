@@ -120,7 +120,7 @@
                         <input type="hidden" id="add_location_method" name="_method" value="POST">
                         @csrf
                         <div class="form-body">
-                            <div class="col-md-6">
+                            <div class="col-md-6"> 
 
                                 <div class="form-group">
                                     <label for="name">Gear Image</label>

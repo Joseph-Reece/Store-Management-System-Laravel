@@ -15,6 +15,11 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->string('reg_no');
+            $table->integer('phone');
+            $table->integer('course');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

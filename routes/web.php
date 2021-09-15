@@ -44,6 +44,9 @@ Route::group(['prefix'=>'gear', 'middleware' => ['auth']], function() {
 //...............................Clients Routes.....................//
 Route::group(['prefix'=>'clients', 'middleware' => ['auth']], function() {
     Route::get('/index', [ClientsController::class, 'index'])->name('clients.index');
+    Route::get('/edit', [ClientsController::class, 'edit'])->name('clients.edit');
+    Route::put('/edit{id}', [ClientsController::class, 'update'])->name('client.update');
+    Route::put('/update{id}', [ClientsController::class, 'updateUser'])->name('clientUser.update');
 });
 
 require __DIR__.'/auth.php';
