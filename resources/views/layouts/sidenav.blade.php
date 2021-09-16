@@ -29,7 +29,7 @@
                 <a href="{{route('gear.index')}}"><i class="material-icons">dvr</i><span class="menu-title" data-i18n="Calendar">Gear Request</span></a>
             </li>
             @endcan
-            
+
             <li class=" nav-item "><a href=""><i class="material-icons">playlist_add_check</i><span class="menu-title" data-i18n="Calendar">Reports</span></a>
             </li>
             @can('user-create')
@@ -44,6 +44,8 @@
             </li>
 
             @endcan
+            <li class=" nav-item "><a href="{{route('chat')}}"><i class="material-icons">chat</i><span class="menu-title" data-i18n="Chat">chat</span></a>
+            </li>
 
 
         </ul>

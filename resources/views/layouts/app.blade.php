@@ -48,6 +48,7 @@
     <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/extensions/toastr.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/file-uploaders/dropzone.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/dropzone.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/app-chat.css">
 
 
     <!-- END: Page CSS-->
@@ -134,6 +135,7 @@
     <script src="/app-assets/js/scripts/extensions/toastr.js"></script>
     <script src="/app-assets/js/scripts/extensions/dropzone.js"></script>
     <script src="/app-assets/vendors/js/ui/prism.min.js"></script>
+    <script src="/app-assets/js/scripts/pages/app-chat.js"></script>
 
 
 

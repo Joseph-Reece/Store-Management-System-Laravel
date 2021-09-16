@@ -25,6 +25,10 @@ use App\Http\Controllers\GearsController;
 Route::get('/', [DashboardController::class, 'homePage'])->name('home');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::get('/chat', function() {
+    return view('backend.chat.index');
+}
+)->middleware(['auth'])->name('chat');
 
 //...............................Spatie Roles and Permissions Routes.....................//
 Route::group(['middleware' => ['auth']], function() {
