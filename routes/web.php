@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\ClientsController;
 use Illuminate\Support\Facades\Route;
 
 
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\GearsController;
+use App\Http\Controllers\GearController;
+use App\Http\Controllers\GearRequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,19 +39,28 @@ Route::group(['middleware' => ['auth']], function() {
 
 //...............................Gears Routes.....................//
 Route::group(['prefix'=>'gear', 'middleware' => ['auth']], function() {
-    Route::get('/index', [GearsController::class, 'index'])->name('gear.index');
-    Route::post('/store', [GearsController::class, 'store'])->name('gear.store');
-    Route::get('/{slug}', [GearsController::class, 'show'])->name('gear.show');
-    Route::get('/edit/{slug}', [GearsController::class, 'edit'])->name('gear.edit');
-    Route::delete('/{id}', [GearsController::class, 'destroy'])->name('gear.destroy');
+    Route::get('/index', [GearController::class, 'index'])->name('gear.index');
+    Route::post('/store', [GearController::class, 'store'])->name('gear.store');
+    Route::get('/{slug}', [GearController::class, 'show'])->name('gear.show');
+    Route::get('/edit/{slug}', [GearController::class, 'edit'])->name('gear.edit');
+    Route::delete('/{id}', [GearController::class, 'destroy'])->name('gear.destroy');
+});
+
+//...............................Gear Request Routes.....................//
+Route::group(['prefix'=>'request', 'middleware' => ['auth']], function() {
+    Route::get('/index', [GearRequestController::class, 'index'])->name('request.index');
+    Route::post('/store', [GearRequestController::class, 'store'])->name('request.store');
+    Route::get('/{slug}', [GearRequestController::class, 'show'])->name('request.show');
+    Route::get('/edit/{id}', [GearRequestController::class, 'edit'])->name('request.edit');
+    Route::delete('/{id}', [GearRequestController::class, 'destroy'])->name('request.destroy');
 });
 
 //...............................Clients Routes.....................//
 Route::group(['prefix'=>'clients', 'middleware' => ['auth']], function() {
-    Route::get('/index', [ClientsController::class, 'index'])->name('clients.index');
-    Route::get('/edit', [ClientsController::class, 'edit'])->name('clients.edit');
-    Route::put('/edit{id}', [ClientsController::class, 'update'])->name('client.update');
-    Route::put('/update{id}', [ClientsController::class, 'updateUser'])->name('clientUser.update');
+    Route::get('/index', [ClientController::class, 'index'])->name('clients.index');
+    Route::get('/edit', [ClientController::class, 'edit'])->name('clients.edit');
+    Route::put('/edit{id}', [ClientController::class, 'update'])->name('client.update');
+    Route::put('/update{id}', [ClientController::class, 'updateUser'])->name('clientUser.update');
 });
 
 require __DIR__.'/auth.php';

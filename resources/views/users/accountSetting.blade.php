@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="content-header-right col-md-3 col-12">
-                        
+
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                                         Change Password
                                     </a>
                                 </li>
-                                
+
                                 <li class="nav-item">
                                     <a class="nav-link d-flex" id="account-pill-info" data-toggle="pill" href="#account-vertical-info" aria-expanded="false">
                                         <i class="ft-info mr-50"></i>
@@ -137,7 +137,7 @@
                                                             <div class="form-group">
                                                                 <div class="controls">
                                                                     <label for="account-reg">Registration Number</label>
-                                                                    <input type="text" class="form-control" id="account-reg" required placeholder="Registration number" value="{{ $details->reg_no }}" data-validation-required-message="This field is required">
+                                                                    <input type="text" class="form-control" id="account-reg" required placeholder="Registration number" value=" {{ $details->reg_no ?? '' }}" data-validation-required-message="This field is required">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -146,7 +146,7 @@
                                                             <div class="form-group">
                                                                 <div class="controls">
                                                                     <label for="account-phone">Phone</label>
-                                                                    <input type="number" class="form-control" id="account-phone" required placeholder="+254" value="{{ $details->phone }}" data-validation-required-message="This phone number field is required">
+                                                                    <input type="number" class="form-control" id="account-phone" required placeholder="+254" value="{{ $details->phone ?? '' }}" data-validation-required-message="This phone number field is required">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -154,11 +154,17 @@
                                                             <div class="form-group">
                                                                 <label for="musicselect2">Course Details</label>
                                                                 <select class="form-control select2 block " id="musicselect2"  >
-                                                                    <option selected disabled >Select Course</option>                                                                     
+                                                                    <option selected disabled >Select Course</option>
                                                                     @foreach ($courses as $key => $course)
-                                                                        <option value="{{$key}}" {{ $key ==  $details->course  ? 'selected' : '' }}>{{$course}}</option>                                                                       
+                                                                        @if (!$details)
+
+                                                                            <option value="{{$key}}">{{$course}}</option>
+                                                                        @else
+
+                                                                            <option value="{{$key}}" {{ $key ==  $details->course  ? 'selected' : '' }}>{{$course}}</option>
+                                                                        @endif
                                                                     @endforeach
-                                                                    
+
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -238,7 +244,7 @@
                             course:course,
                         },
                         success: function (res) {
-                            // toastr.success(res.success, 'SUCCESS', { positionClass: 'toast-bottom-right', containerId: 'toast-bottom-right', "progressBar": true });
+                            toastr.success(res.success, 'SUCCESS', { positionClass: 'toast-bottom-right', containerId: 'toast-bottom-right', "progressBar": true });
 
                             // $('.formPass')[0].reset()
                         },
