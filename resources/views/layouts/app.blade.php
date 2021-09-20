@@ -47,6 +47,8 @@
     <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/pickers/daterange/daterange.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/extensions/toastr.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/file-uploaders/dropzone.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/ecommerce-cart.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/travel.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/dropzone.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/app-chat.css">
 
@@ -133,6 +135,7 @@
     <script src="/app-assets/js/scripts/tables/datatables/datatable-advanced.js"></script>
     <script src="/app-assets/js/scripts/forms/form-repeater.js"></script>
     <script src="/app-assets/js/scripts/extensions/toastr.js"></script>
+    <script src="/app-assets/js/scripts/pages/ecommerce-cart.js"></script>
     <script src="/app-assets/js/scripts/extensions/dropzone.js"></script>
     <script src="/app-assets/vendors/js/ui/prism.min.js"></script>
     <script src="/app-assets/js/scripts/pages/app-chat.js"></script>

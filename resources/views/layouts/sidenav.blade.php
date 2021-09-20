@@ -6,7 +6,7 @@
                 <a href="{{route('dashboard')}}"><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="Dashboard Hospital">Dashboard</span></a>
             </li>
 
-             @can('user-create')
+             @role('Admin')
 
              <li><a class="menu-item" href="#"><i class="material-icons">perm_data_setting</i><span data-i18n="Gear">Gear Management</span></a>
                 <ul class="menu-content">
@@ -22,17 +22,21 @@
             <li class=" nav-item {{Request::routeIs('clients.index') ? 'active' : ''}} ">
                 <a href="{{route('clients.index')}}"><i class="material-icons">dvr</i><span class="menu-title" data-i18n="Calendar">Students</span></a>
             </li>
-            @endcan
+            @endrole
 
-            @can('request-create')
+            @role('Student')
             <li class=" nav-item {{Request::routeIs('gear.index') ? 'active' : ''}} ">
                 <a href="{{route('gear.index')}}"><i class="material-icons">dvr</i><span class="menu-title" data-i18n="Calendar">Gear Request</span></a>
             </li>
-            @endcan
+            <li class=" nav-item {{Request::routeIs('request.index') ? 'active' : ''}}  " >
+                <a href="{{route('request.index')}}"><i class="material-icons">playlist_add_check</i><span class="menu-title" data-i18n="Calendar">My Requests</span></a>
+            </li>
+            @endrole
+
 
             <li class=" nav-item "><a href=""><i class="material-icons">playlist_add_check</i><span class="menu-title" data-i18n="Calendar">Reports</span></a>
             </li>
-            @can('user-create')
+            @role('Admin')
 
             <li><a class="menu-item" href="#"><i class="material-icons">people_outline</i><span data-i18n="Users">User Management</span></a>
                 <ul class="menu-content">
@@ -43,7 +47,7 @@
                 </ul>
             </li>
 
-            @endcan
+            @endrole
             <li class=" nav-item "><a href="{{route('chat')}}"><i class="material-icons">chat</i><span class="menu-title" data-i18n="Chat">chat</span></a>
             </li>
 

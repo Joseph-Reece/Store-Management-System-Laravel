@@ -101,7 +101,6 @@
                         </div>
                     </div>
                 </section>
-
             </div>
         </div>
     </div>
@@ -120,7 +119,7 @@
                         <input type="hidden" id="add_location_method" name="_method" value="POST">
                         @csrf
                         <div class="form-body">
-                            <div class="col-md-6"> 
+                            <div class="col-md-6">
 
                                 <div class="form-group">
                                     <label for="name">Gear Image</label>
@@ -215,7 +214,7 @@
 
     <script>
 
-        /* ===================== Add Location Toggle ============================ */
+        /* ===================== Add Gear Toggle ============================ */
         $(document).on("click", "#addGear", function (e) {
            e.preventDefault();
 
@@ -231,7 +230,8 @@
            $('#town').val('');
            $('#description').val('');
 
-
+            $('#sport').select2()
+            $('#category').select2()
 
            $('#gear_info').modal('show');
        });
