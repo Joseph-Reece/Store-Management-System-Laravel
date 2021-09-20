@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gears;
+use App\Models\Gear;
 use Illuminate\Http\Request;
 
-class GearsController extends Controller
+class GearController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class GearsController extends Controller
             'Outdoor game',
         ];
 
-        $gears = Gears::all();
+        $gears = Gear::all();
         return view('backend.Gear.index', compact('sports', 'categories', 'gears'));
     }
 
@@ -73,7 +73,7 @@ class GearsController extends Controller
 
         // dd($sports[$sport]);
 
-        $gear = new Gears();
+        $gear = new Gear();
 
         $gear->fill($formData);
 
@@ -90,26 +90,26 @@ class GearsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Gears  $gears
+     * @param  \App\Models\Gear  $Gear
      * @return \Illuminate\Http\Response
      */
-    public function show(Gears $gears, $slug)
+    public function show(Gear $Gear, $slug)
     {
         //
-        $gear = Gears::where('slug', $slug)->get();
+        $gear = Gear::where('slug', $slug)->get();
         dd($gear[0]->name);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Gears  $gears
+     * @param  \App\Models\Gear  $Gear
      * @return \Illuminate\Http\Response
      */
-    public function edit(Gears $gears, $slug)
+    public function edit(Gear $Gear, $slug)
     {
         //
-        $gear = Gears::where('slug', $slug)->get();
+        $gear = Gear::where('slug', $slug)->get();
         dd($gear[0]->name);
     }
 
@@ -117,10 +117,10 @@ class GearsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Gears  $gears
+     * @param  \App\Models\Gear  $Gear
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Gears $gears)
+    public function update(Request $request, Gear $Gear)
     {
         //
     }
@@ -128,10 +128,10 @@ class GearsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Gears  $gears
+     * @param  \App\Models\Gear  $Gear
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Gears $gears)
+    public function destroy(Gear $Gear)
     {
         //
         dd('woow');

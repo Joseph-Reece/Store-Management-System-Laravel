@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Clients extends Model
+class Client extends Model
 {
     use HasFactory;
 
@@ -29,4 +30,14 @@ class Clients extends Model
         'course',
         'reg_no',
     ];
+
+    /**
+     * Get the user that owns the Client
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

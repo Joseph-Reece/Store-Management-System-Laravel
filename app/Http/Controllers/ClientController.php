@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Clients;
+use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class ClientsController extends Controller
+class ClientController extends Controller
 {
     function __construct()
     {
@@ -28,7 +28,7 @@ class ClientsController extends Controller
         //
         $data = User::role('student')->get();
 
-        return view('backend.Clients.index', compact('data'));
+        return view('backend.Client.index', compact('data'));
     }
 
     /**
@@ -55,10 +55,10 @@ class ClientsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Clients  $clients
+     * @param  \App\Models\Client  $Client
      * @return \Illuminate\Http\Response
      */
-    public function show(Clients $clients)
+    public function show(Client $Client)
     {
         //
     }
@@ -66,16 +66,15 @@ class ClientsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Clients  $clients
+     * @param  \App\Models\Client  $Client
      * @return \Illuminate\Http\Response
      */
-    public function edit(Clients $clients)
+    public function edit(Client $Client)
     {
         //
         $user = Auth::user();
-        $details = Clients::where('user_id', $user->id)->first();
-        $courses = Clients::courses;
-        // dd($details);
+        $details = Client::where('user_id', $user->id)->first();
+        $courses = Client::courses;
 
         return view('users.accountSetting', compact('user', 'courses', 'details'));
     }
@@ -84,15 +83,15 @@ class ClientsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Clients  $clients
+     * @param  \App\Models\Client  $Client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Clients $clients)
+    public function update(Request $request, Client $Client)
     {
         //
         $user = Auth::id();
 
-        $save = Clients::updateOrCreate(
+        $save = Client::updateOrCreate(
             ['user_id' => $user],
             [
                 'reg_no' => $request->reg_no,
@@ -100,7 +99,7 @@ class ClientsController extends Controller
                 'course' => $request->course,
             ]
         );
-        
+
         return response()->json(['success'=>'Info updated successfully !'], 200);
     }
 
@@ -108,7 +107,7 @@ class ClientsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Clients  $clients
+     * @param  \App\Models\Client  $Client
      * @return \Illuminate\Http\Response
      */
     public function updateUser(Request $request, $id)
@@ -140,10 +139,10 @@ class ClientsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Clients  $clients
+     * @param  \App\Models\Client  $Client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Clients $clients)
+    public function destroy(Client $Client)
     {
         //
     }
