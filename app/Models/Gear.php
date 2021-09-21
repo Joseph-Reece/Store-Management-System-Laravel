@@ -22,6 +22,42 @@ class Gear extends Model
         'sport',
     ];
 
+    const sports = [
+        'Football',
+        'NetBall',
+        'Rugby',
+    ];
+
+    const categories = [
+        'Indoor game',
+        'Outdoor game',
+    ];
+
+    /**
+     * Scope a query to filter results.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFilter($query, $params)
+    {
+        if ( isset($params['keyword']) && trim($params['keyword'] !== '') ) {
+            $query->where('name', 'LIKE', trim($params['keyword']) . '%');
+        }
+
+        if ( isset($params['category']) && trim($params['category']) !== '' )
+        {
+            $query->where('category', '=', trim($params['category']));
+        }
+
+        if ( isset($params['sport']) && trim($params['sport']) !== '' )
+        {
+            $query->where('sport', '=', trim($params['sport']));
+        }
+
+        return $query;
+    }
+
     /**
      * Get the options for generating the slug.
      */

@@ -29,6 +29,7 @@
     <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/extensions/toastr.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/ui/prism.min.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/file-uploaders/dropzone.min.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/forms/icheck/icheck.css">
 
     <!-- END: Vendor CSS-->
 
@@ -48,6 +49,8 @@
     <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/extensions/toastr.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/file-uploaders/dropzone.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/ecommerce-cart.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/ecommerce-shop.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/forms/checkboxes-radios.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/travel.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/dropzone.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/app-chat.css">
@@ -105,6 +108,7 @@
 
 
     <script src="/app-assets/vendors/js/charts/chart.min.js"></script>
+    <script src="/app-assets/vendors/js/forms/icheck/icheck.min.js"></script>
 
     <script src="/app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
     <script src="/app-assets/vendors/js/tables/datatable/dataTables.buttons.min.js"></script>

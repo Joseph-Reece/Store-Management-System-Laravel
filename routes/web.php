@@ -44,15 +44,20 @@ Route::group(['prefix'=>'gear', 'middleware' => ['auth']], function() {
     Route::get('/{slug}', [GearController::class, 'show'])->name('gear.show');
     Route::get('/edit/{slug}', [GearController::class, 'edit'])->name('gear.edit');
     Route::delete('/{id}', [GearController::class, 'destroy'])->name('gear.destroy');
+
 });
 
 //...............................Gear Request Routes.....................//
 Route::group(['prefix'=>'request', 'middleware' => ['auth']], function() {
     Route::get('/index', [GearRequestController::class, 'index'])->name('request.index');
+    Route::get('/request-Gear', [GearRequestController::class, 'gearListing'])->name('request.create');
     Route::post('/store', [GearRequestController::class, 'store'])->name('request.store');
     Route::get('/{slug}', [GearRequestController::class, 'show'])->name('request.show');
     Route::get('/edit/{id}', [GearRequestController::class, 'edit'])->name('request.edit');
     Route::delete('/{id}', [GearRequestController::class, 'destroy'])->name('request.destroy');
+
+    Route::post('/search', [GearRequestController::class, 'search'])->name('request.search');
+
 });
 
 //...............................Clients Routes.....................//

@@ -25,8 +25,8 @@
             @endrole
 
             @role('Student')
-            <li class=" nav-item {{Request::routeIs('gear.index') ? 'active' : ''}} ">
-                <a href="{{route('gear.index')}}"><i class="material-icons">dvr</i><span class="menu-title" data-i18n="Calendar">Gear Request</span></a>
+            <li class=" nav-item {{Request::routeIs('request.create') ? 'active' : ''}} ">
+                <a href="{{route('request.create')}}"><i class="material-icons">dvr</i><span class="menu-title" data-i18n="Calendar">Gear Request</span></a>
             </li>
             <li class=" nav-item {{Request::routeIs('request.index') ? 'active' : ''}}  " >
                 <a href="{{route('request.index')}}"><i class="material-icons">playlist_add_check</i><span class="menu-title" data-i18n="Calendar">My Requests</span></a>

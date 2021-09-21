@@ -15,18 +15,11 @@ class GearController extends Controller
     public function index()
     {
         //
-        $sports = [
-            'Football',
-            'NetBall',
-            'Rugby',
-        ];
-
-        $categories = [
-            'Indoor game',
-            'Outdoor game',
-        ];
+        $categories = Gear::categories;
+        $sports = Gear::sports;
 
         $gears = Gear::all();
+
         return view('backend.Gear.index', compact('sports', 'categories', 'gears'));
     }
 
