@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 <div class="app-content content chat-application ">
     <div class="sidebar-left">
@@ -13,8 +14,8 @@
 
                         <img src="../../../app-assets/images/portrait/small/avatar-s-11.png" class="round mb-1" alt="user_avatar" height="100" width="100">
 
-                        <h5 class="mb-0">John Doe</h5>
-                        <span>Designer</span>
+                        <h5 class="mb-0">{{ $user->name }}</h5>
+                        <span>{{$role[0]}}</span>
                     </div>
                 </header>
                 <div class="chat-user-profile-content">
@@ -23,30 +24,8 @@
                         <p class="mb-2">It is a long established fact that a reader will be distracted by the readable content .</p>
                         <h6>PERSONAL INFORAMTION</h6>
                         <ul class="list-unstyled mb-2">
-                            <li class="mb-25">email@gmail.com</li>
-                            <li>+1(789) 950 -7654</li>
-                        </ul>
-                        <h6 class="text-uppercase mb-1">CHANNELS</h6>
-                        <ul class="list-unstyled mb-2">
-                            <li><a href="javascript:void(0);"># Devlopers</a></li>
-                            <li><a href="javascript:void(0);"># Designers</a></li>
-                        </ul>
-                        <h6 class="text-uppercase mb-1">SETTINGS</h6>
-                        <ul class="list-unstyled">
-                            <li class="mb-50 "><a href="javascript:void(0);" class="d-flex align-items-center"><i class="ft-tag mr-50"></i>
-                                    Add
-                                    Tag</a></li>
-                            <li class="mb-50 "><a href="javascript:void(0);" class="d-flex align-items-center"><i class="ft-star mr-50"></i>
-                                    Important Contact</a>
-                            </li>
-                            <li class="mb-50 "><a href="javascript:void(0);" class="d-flex align-items-center"><i class="ft-image mr-50"></i>
-                                    Shared
-                                    Documents</a></li>
-                            <li class="mb-50 "><a href="javascript:void(0);" class="d-flex align-items-center"><i class="ft-trash-2 mr-50"></i>
-                                    Deleted
-                                    Documents</a></li>
-                            <li><a href="javascript:void(0);" class="d-flex align-items-center"><i class="ft-x-circle mr-50"></i> Blocked
-                                    Contact</a></li>
+                            <li class="mb-25">{{$user->email}}</li>
+                            <li>{{$user->client->reg_no}}</li>
                         </ul>
                     </div>
                 </div>
@@ -73,122 +52,54 @@
                     </div>
                 </div>
                 <div class="chat-sidebar-list-wrapper pt-2">
-                    <h6 class="px-2 pb-25 mb-0">CHANNELS<i class="ft-plus float-right cursor-pointer"></i></h6>
-                    <ul class="chat-sidebar-list">
-                        <li>
-                            <h6 class="mb-0"># Devlopers</h6>
-                        </li>
-                        <li>
-                            <h6 class="mb-0"># Designers</h6>
-                        </li>
-                    </ul>
                     <h6 class="px-2 pt-2 pb-25 mb-0">CHATS</h6>
                     <ul class="chat-sidebar-list">
-                        <li>
-                            <div class="d-flex align-items-center">
-                                <div class="avatar m-0 mr-50"><img src="../../../app-assets/images/portrait/small/avatar-s-26.png" height="36" width="36" alt="sidebar user image">
-                                    <span class="avatar-status-busy"></span>
+                        @role('Admin')
+                        @foreach ($chats as $chat)
+                            <li data-id="{{ $chat->user_id }}">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar m-0 mr-50"><img src="../../../app-assets/images/portrait/small/avatar-s-26.png" height="36" width="36" alt="sidebar user image">
+                                        <span class="avatar-status-busy"></span>
+                                    </div>
+                                    <div class="chat-sidebar-name">
+                                        <h6 class="mb-0">{{$chat->user->name}}</h6><span class="text-muted">Cake pie</span>
+                                    </div>
                                 </div>
-                                <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Elizabeth Elliott</h6><span class="text-muted">Cake pie</span>
+                            </li>
+
+                        @endforeach
+                        @endrole
+
+                        @role('Student')
+                        @foreach ($chats as $chat)
+                            <li data-id="{{ $chat->recipient_id }}">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar m-0 mr-50"><img src="../../../app-assets/images/portrait/small/avatar-s-26.png" height="36" width="36" alt="sidebar user image">
+                                        <span class="avatar-status-busy"></span>
+                                    </div>
+                                    <div class="chat-sidebar-name">
+                                        <h6 class="mb-0">{{$chat->recipient->name}}</h6><span class="text-muted">Admin</span>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex align-items-center">
-                                <div class="avatar m-0 mr-50"><img src="../../../app-assets/images/portrait/small/avatar-s-7.png" height="36" width="36" alt="sidebar user image">
-                                    <span class="avatar-status-online"></span>
-                                </div>
-                                <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Kristopher Candy</h6><span class="text-muted">jelly jelly</span>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+
+                        @endforeach
+                        @endrole
                     </ul>
-                    <h6 class="px-2 pt-2 pb-25 mb-0">CONTACTS<i class="ft-plus float-right cursor-pointer"></i></h6>
+                    <h6 class="px-2 pt-2 pb-25 mb-0">CONTACTS</h6>
                     <ul class="chat-sidebar-list">
-                        <li>
-                            <div class="d-flex align-items-center">
-                                <div class="avatar m-0 mr-50"><img src="../../../app-assets/images/portrait/small/avatar-s-8.png" height="36" width="36" alt="sidebar user image">
-                                    <span class="avatar-status-away"></span>
+                        @foreach ($contacts as $contact)
+                            <li data-id="{{$contact->id}}">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar m-0 mr-50"><img src="../../../app-assets/images/portrait/small/avatar-s-8.png" height="36" width="36" alt="sidebar user image">
+                                        <span class="avatar-status-away"></span>
+                                    </div>
+                                    <div class="chat-sidebar-name">
+                                        <h6 class="mb-0">{{$contact->name}}</h6><span class="text-muted"> Admin</span>
+                                    </div>
                                 </div>
-                                <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Sarah Woods</h6><span class="text-muted"> lemon drops</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex align-items-center">
-                                <div class="avatar bg-info m-0 mr-50">
-                                    <span class="avatar-content">JP</span>
-                                    <span class="avatar-status-offline"></span>
-                                </div>
-                                <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Jenny Perich</h6><span class="text-muted">candy canes.</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex align-items-center">
-                                <div class="avatar m-0 mr-50"><img src="../../../app-assets/images/portrait/small/avatar-s-5.png" height="36" width="36" alt="sidebar user image">
-                                    <span class="avatar-status-online"></span>
-                                </div>
-                                <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Rock Montgomery</h6><span class="text-muted">powder gum</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex align-items-center">
-                                <div class="avatar m-0 mr-50"><img src="../../../app-assets/images/portrait/small/avatar-s-9.png" height="36" width="36" alt="sidebar user image">
-                                    <span class="avatar-status-busy"></span>
-                                </div>
-                                <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Heather Howell</h6><span class="text-muted">cheesecake toffee</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex align-items-center">
-                                <div class="avatar m-0 mr-50 bg-success">
-                                    <span class="avatar-content">KR</span>
-                                    <span class="avatar-status-offline"></span>
-                                </div>
-                                <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Kelly Reyes</h6><span class="text-muted">gingerbread</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex align-items-center">
-                                <div class="avatar m-0 mr-50"><img src="../../../app-assets/images/portrait/small/avatar-s-14.png" height="36" width="36" alt="sidebar user image">
-                                    <span class="avatar-status-online"></span>
-                                </div>
-                                <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Vince Nelson</h6><span class="text-muted">Puddingdrops</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex align-items-center">
-                                <div class="avatar m-0 mr-50"><img src="../../../app-assets/images/portrait/small/avatar-s-3.png" height="36" width="36" alt="sidebar user image">
-                                    <span class="avatar-status-offline"></span>
-                                </div>
-                                <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Drake Elliott</h6><span class="text-muted">jelly helloi</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="d-flex align-items-center">
-                                <div class="avatar m-0 mr-50"><img src="../../../app-assets/images/portrait/small/avatar-s-7.png" height="36" width="36" alt="sidebar user image">
-                                    <span class="avatar-status-online"></span>
-                                </div>
-                                <div class="chat-sidebar-name">
-                                    <h6 class="mb-0">Kristopher Candy</h6><span class="text-muted">jujubes</span>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -198,10 +109,10 @@
     </div>
     <div class="content-right">
         <div class="content-overlay"></div>
-        <div class="content-wrapper">
-            <div class="content-header row">
-            </div>
-            <div class="content-body">
+        <div class=" ">
+            {{-- <div class="content-header row">
+            </div> --}}
+            <div class="content-body chat-mine">
                 <!-- app chat overlay -->
                 <div class="chat-overlay"></div>
                 <!-- app chat window start -->
@@ -222,21 +133,7 @@
                                         <img src="../../../app-assets/images/portrait/small/avatar-s-26.png" class="cursor-pointer" alt="avatar" height="36" width="36" />
                                         <span class="avatar-status-busy"></span>
                                     </div>
-                                    <h6 class="mb-0">Elizabeth Elliott</h6>
-                                </div>
-                                <div class="chat-header-icons">
-                                    <span class="chat-icon-favorite">
-                                        <i class="ft-star font-medium-5 cursor-pointer"></i>
-                                    </span>
-                                    <span class="dropdown">
-                                        <i class="ft-more-vertical font-medium-4 ml-25 cursor-pointer dropdown-toggle nav-hide-arrow cursor-pointer" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu">
-                                        </i>
-                                        <span class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="JavaScript:void(0);"><i class="ft-tag mr-25"></i> Pin to top</a>
-                                            <a class="dropdown-item" href="JavaScript:void(0);"><i class="ft-trash-2 mr-25"></i> Delete chat</a>
-                                            <a class="dropdown-item" href="JavaScript:void(0);"><i class="ft-x-circle mr-25"></i> Block</a>
-                                        </span>
-                                    </span>
+                                    <h6 class="mb-0" id="recipient_name">Elizabeth Eseslliott</h6>
                                 </div>
                             </header>
                         </div>
@@ -244,7 +141,7 @@
                         <div class="card chat-wrapper shadow-none mb-0">
                             <div class="card-content">
                                 <div class="card-body chat-container">
-                                    <div class="chat-content">
+                                    <div class="chat-content ">
                                         <div class="chat">
                                             <div class="chat-avatar">
                                                 <a class="avatar m-0">
@@ -345,23 +242,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="chat">
-                                            <div class="chat-avatar">
-                                                <a class="avatar m-0">
-                                                    <img src="../../../app-assets/images/portrait/small/avatar-s-11.png" alt="avatar" height="36" width="36" />
-                                                </a>
-                                            </div>
-                                            <div class="chat-body">
-                                                <div class="chat-message">
-                                                    <p>Great, Feel free to get in touch on</p>
-                                                    <span class="chat-time">3:34 AM</span>
-                                                </div>
-                                                <div class="chat-message">
-                                                    <p>https://pixinvent.ticksy.com/</p>
-                                                    <span class="chat-time">3:35 AM</span>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -369,7 +249,8 @@
                                 <form class="d-flex align-items-center" onsubmit="chatMessagesSend();" action="javascript:void(0);">
                                     <i class="ft-user cursor-pointer"></i>
                                     <i class="ft-paperclip ml-1 cursor-pointer"></i>
-                                    <input type="text" class="form-control chat-message-send mx-1" placeholder="Type your message here...">
+                                    <input type="hidden" name="selected_chat" id="selected_chat" value="">
+                                    <input type="text" id="message_input" class="form-control chat-message-send mx-1" placeholder="Type your message here...">
                                     <button type="submit" class="btn btn-primary glow send d-lg-flex"><i class="ft-play"></i>
                                         <span class="d-none d-lg-block mx-50">Send</span></button>
                                 </form>

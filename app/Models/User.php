@@ -76,4 +76,34 @@ class User extends Authenticatable
         return $this->hasOne(Client::class);
     }
 
+    /**
+     * Get all of the messages for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    /**
+     * Get all of the chats for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function chats(): HasMany
+    {
+        return $this->hasMany(Chat::class);
+    }
+
+    /**
+     * Get all of the recipientChat for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function recipientChat(): HasMany
+    {
+        return $this->hasMany(Chat::class,'recipient_id');
+    }
+
 }

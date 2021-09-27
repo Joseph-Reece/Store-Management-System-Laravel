@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -9,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GearController;
 use App\Http\Controllers\GearRequestController;
+use App\Http\Controllers\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,10 +28,7 @@ use App\Http\Controllers\GearRequestController;
 Route::get('/', [DashboardController::class, 'homePage'])->name('home');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
-Route::get('/chat', function() {
-    return view('backend.chat.index');
-}
-)->middleware(['auth'])->name('chat');
+
 
 //...............................Spatie Roles and Permissions Routes.....................//
 Route::group(['middleware' => ['auth']], function() {
@@ -66,6 +65,17 @@ Route::group(['prefix'=>'clients', 'middleware' => ['auth']], function() {
     Route::get('/edit', [ClientController::class, 'edit'])->name('clients.edit');
     Route::put('/edit{id}', [ClientController::class, 'update'])->name('client.update');
     Route::put('/update{id}', [ClientController::class, 'updateUser'])->name('clientUser.update');
+});
+
+//...............................Chat Module Routes.....................//
+Route::group(['prefix'=>'chat', 'middleware' => ['auth']], function() {
+    Route::get('/index', [ChatController::class, 'index'])->name('chat');
+    Route::get('/{id}', [MessageController::class, 'index'])->name('chat.messages');
+    Route::post('/message', [MessageController::class, 'sendMessage'])->name('chat.send');
+
+    Route::get('/edit', [MessageController::class, 'edit'])->name('chat.edit');
+    Route::put('/edit{id}', [MessageController::class, 'update'])->name('chat.update');
+    Route::put('/update{id}', [MessageController::class, 'updateUser'])->name('chatUser.update');
 });
 
 require __DIR__.'/auth.php';

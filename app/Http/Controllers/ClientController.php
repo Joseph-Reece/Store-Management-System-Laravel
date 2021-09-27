@@ -28,7 +28,7 @@ class ClientController extends Controller
         //
         $data = User::role('student')->get();
 
-        return view('backend.Client.index', compact('data'));
+        return view('backend.Clients.index', compact('data'));
     }
 
     /**

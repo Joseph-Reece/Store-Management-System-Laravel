@@ -58,6 +58,8 @@ html {
           z-index: -1; }
       html body .content .content-wrapper {
         padding: 2.1rem 2rem 0; }
+      html body .content .content-wrapper .chat-mine {
+        padding: 0; }
         html body .content .content-wrapper .content-header-title {
           font-weight: 500;
           letter-spacing: 1px;
