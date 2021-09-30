@@ -48,14 +48,19 @@ Route::group(['prefix'=>'gear', 'middleware' => ['auth']], function() {
 
 //...............................Gear Request Routes.....................//
 Route::group(['prefix'=>'request', 'middleware' => ['auth']], function() {
-    Route::get('/index', [GearRequestController::class, 'index'])->name('request.index');
-    Route::get('/request-Gear', [GearRequestController::class, 'gearListing'])->name('request.create');
+    // Admin only routes
+    Route::get('/manager', [GearRequestController::class, 'adminIndex'])->name('request.adminIndex');
     Route::post('/store', [GearRequestController::class, 'store'])->name('request.store');
+    Route::get('/index', [GearRequestController::class, 'index'])->name('request.index');
+    Route::get('/Gear', [GearRequestController::class, 'gearListing'])->name('request.create');
     Route::get('/{slug}', [GearRequestController::class, 'show'])->name('request.show');
     Route::get('/edit/{id}', [GearRequestController::class, 'edit'])->name('request.edit');
     Route::delete('/{id}', [GearRequestController::class, 'destroy'])->name('request.destroy');
 
+    // Search
     Route::post('/search', [GearRequestController::class, 'search'])->name('request.search');
+
+
 
 });
 

@@ -147,7 +147,8 @@
   background: #f4f5fa;
   margin-bottom: 1rem;
   position: relative;
-  min-height: 300px; }
+  /* min-height: 300px; */
+ }
   .product-img img {
     margin: 0 auto; }
   .product-img .badge {

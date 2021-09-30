@@ -29,7 +29,7 @@
 
 .shopping-cart .product-img {
   background: #f4f5fa;
-  height: 100px;
+  height: auto;
   margin-bottom: 1rem;
   width: 130px;
   position: relative; }

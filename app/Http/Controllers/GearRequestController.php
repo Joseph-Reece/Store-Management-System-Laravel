@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Gear;
 use App\Models\GearRequest;
+use App\Models\IssuedGear;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GearRequestController extends Controller
 {
@@ -16,7 +18,23 @@ class GearRequestController extends Controller
     public function index()
     {
         //
-        return view('backend.Gear.MyRequests');
+        $user = Auth::user();
+        $status = GearRequest::status;
+        $gearRequests = GearRequest::where('user_id', $user->id)->with('gear')->orderByDesc('created_at')->paginate(5);
+        // dd($gearRequests->gear);
+        return view('backend.Gear.MyRequests', compact('user', 'status', 'gearRequests'));
+    }
+
+    public function adminIndex()
+    {
+        $status = GearRequest::status;
+        $sports = Gear::sports;
+
+        $pendingRequests = GearRequest::where('status', 0)->with('gear', 'user')->orderByDesc('created_at')->get();
+        $approvedRequests = GearRequest::where('status', 1)->with('gear', 'user')->orderByDesc('created_at')->get();
+        $deniedRequests = GearRequest::where('status', 2)->with('gear', 'user')->orderByDesc('created_at')->get();
+
+        return view('backend.Orders.request_Manager', compact('pendingRequests','status', 'sports', 'approvedRequests', 'deniedRequests'));
     }
 
     /**
@@ -33,8 +51,6 @@ class GearRequestController extends Controller
         $sports = Gear::sports;
 
         $gears = Gear::filter($params)->paginate(6);
-
-        // dd( $request->query('category'));
 
         $query_keyword = $request->query('keyword');
         $query_category = $request->query('category');
@@ -53,19 +69,6 @@ class GearRequestController extends Controller
         ));
     }
 
-
-    public function filterByParameters($keyword='', $category='', $sport='')
-    {
-        $query = Gear::all();
-
-        // if ($keyword != '') {
-        //     $query->where('name', 'like',  "%{$keyword}%");
-        // }
-
-        return $query;
-
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -75,6 +78,23 @@ class GearRequestController extends Controller
     public function store(Request $request)
     {
         //
+        $gearID = $request->id;
+        $userId = Auth::id();
+
+        $gearRequest = new GearRequest();
+
+        $gearRequest->user_id = $userId;
+        $gearRequest->gear_id = $gearID;
+        $gearRequest->status = 0;
+
+        $gearRequest -> save();
+
+        $notification = [
+            'message' => 'Request Sent successfully',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->route('request.index')->with($notification);
     }
 
     /**
@@ -83,9 +103,17 @@ class GearRequestController extends Controller
      * @param  \App\Models\GearRequest  $gearRequest
      * @return \Illuminate\Http\Response
      */
-    public function show(GearRequest $gearRequest)
+    public function show(GearRequest $gearRequest, $slug)
     {
         //
+        $categories = Gear::categories;
+        $sports = Gear::sports;
+        $gear = Gear::where('slug',$slug)->first();
+
+        // dd($gear->name);
+
+        return view('backend.Orders.show', compact('gear', 'categories', 'sports'));
+
     }
 
     /**
@@ -117,8 +145,25 @@ class GearRequestController extends Controller
      * @param  \App\Models\GearRequest  $gearRequest
      * @return \Illuminate\Http\Response
      */
-    public function destroy(GearRequest $gearRequest)
+    public function destroy(GearRequest $gearRequest , $id)
     {
-        //
+
+        if (IssuedGear::where('gear_request_id', $id)->exists()) {
+            $notification = [
+                'message' => 'Request Was Issued Cannot Delete this Item',
+                'alert-type' => 'error'
+            ];
+
+            return redirect()->back()->with($notification);
+        }
+
+        $gearRequest->destroy($id);
+
+        $notification = [
+            'message' => 'Request Deleted successfully',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->back()->with($notification);
     }
 }

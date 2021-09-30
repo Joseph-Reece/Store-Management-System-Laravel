@@ -46,14 +46,14 @@
     <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/hospital.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/forms/wizard.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/pickers/daterange/daterange.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/app-chat.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/extensions/toastr.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/file-uploaders/dropzone.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/ecommerce-cart.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/travel.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/ecommerce-shop.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/forms/checkboxes-radios.css">
-    <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/travel.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/dropzone.css">
-    <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/app-chat.css">
 
 
     <!-- END: Page CSS-->

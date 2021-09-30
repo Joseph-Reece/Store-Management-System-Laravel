@@ -41,7 +41,13 @@
                                 <div class="col-md-6 col-sm-12">
                                     <div class="card pull-up">
                                         <div class="card-content">
-                                            <a href="#">
+                                            <a href="{{route('request.show', $gear->slug)}}"
+                                                id="showGear"
+                                                {{-- data-toggle="modal"
+                                                data-target="#gear_info" --}}
+                                                data-slug="{{$gear->slug}}"
+                                            >
+                                            {{-- <a href="{{route('request.show', $gear->slug)}}"> --}}
                                                 <div class="card-body p-0">
                                                     <div class="align-items-center">
                                                         <div class="badge badge-success position-absolute m-2 round">{{$categories[$gear->category]}}</div>
@@ -150,8 +156,4 @@
             </div>
         </div>
     </div>
-
-    <script src="/app-assets/js/core/libraries/jquery.min.js"></script>
-
-
 @endsection
