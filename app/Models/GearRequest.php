@@ -10,6 +10,10 @@ class GearRequest extends Model
 {
     use HasFactory;
 
+    protected $fillable =[
+        'status'
+    ];
+
     const status =[
         'PENDING',
         'APPROVED',

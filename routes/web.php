@@ -50,6 +50,9 @@ Route::group(['prefix'=>'gear', 'middleware' => ['auth']], function() {
 Route::group(['prefix'=>'request', 'middleware' => ['auth']], function() {
     // Admin only routes
     Route::get('/manager', [GearRequestController::class, 'adminIndex'])->name('request.adminIndex');
+    Route::get('/showStatus', [GearRequestController::class, 'getReport'])->name('request.getReport');
+    Route::post('/change-status', [GearRequestController::class, 'changeStatus'])->name('request.changeStatus');
+
     Route::post('/store', [GearRequestController::class, 'store'])->name('request.store');
     Route::get('/index', [GearRequestController::class, 'index'])->name('request.index');
     Route::get('/Gear', [GearRequestController::class, 'gearListing'])->name('request.create');

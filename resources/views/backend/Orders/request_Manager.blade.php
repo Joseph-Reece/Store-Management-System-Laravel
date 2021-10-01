@@ -35,6 +35,94 @@
     <div class="content-wrapper">
         <div class="content-body">
             <div class="shopping-cart">
+
+                <div id="details_panel" class="" style="display: none">
+                    <div class="row match-height">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Student Details <span id="client_status" class="badge badge-striped border-left-success"></span></h4>
+                                    <input type="text" disabled class="form-control" id='client_name' />
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="client_regNo">Registration Number</label>
+                                                    <input type="text" disabled id="client_regNo" class="form-control " placeholder="" aria-describedby="">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="client_course">Course</label>
+                                                    <input type="text" disabled id="client_course" class="form-control " placeholder="" aria-describedby="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="client_email">Email</label>
+                                                    <input type="text" disabled id="client_email" class="form-control " placeholder="" aria-describedby="">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="client_contact">Contact</label>
+                                                    <input type="text" disabled id="client_contact" class="form-control " placeholder="" aria-describedby="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Request History</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <div class="price-detail">Current Request<span class="float-right" id="request_id">$2800</span></div>
+                                        <div class="price-detail">Pending Requests<span class="float-right" id="pending_requests">$2800</span></div>
+                                        <div class="price-detail">Approved Requests <span class="float-right" id="approved_requests">$100</span></div>
+                                        <div class="price-detail">Denied Requests <span class="float-right" id="denied_requests">$0</span></div>
+                                        <hr>
+                                        <div class="price-detail">Pending Return <span class="float-right" id="pending_return">$2900</span></div>
+                                        <div class="total-savings">Total Fines<span class="float-right" id="total_fines">$2900</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form action="{{route('request.changeStatus')}}" class="form" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <input type="hidden" name="requestID" id="request_ID">
+                                            <div class="col-md-6">
+                                                <select name="status" id="request_status" class="select2 form-control select">
+
+                                                    @foreach ($status as $key => $value)
+                                                        <option value="{{$key}}">{{$value}} </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="text-right">
+                                                <a href="#" id="closePanel" class="btn btn-info mr-2">Close Panel</a>
+                                                <button type="submit" class="btn btn-warning">Approve Request</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+
                 <ul class="nav nav-tabs nav-justified">
                     <li class="nav-item">
                         <a class="nav-link active" id="shopping-cart" data-toggle="tab" aria-controls="shop-cart-tab" href="#shop-cart-tab" aria-expanded="true">Pending</a>
@@ -82,7 +170,14 @@
                                                             <div class="product-price">{{$item->created_at}}</div>
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-small btn-primary">{{$status[$item->status]}}</button>
+                                                            <button
+                                                                class="btn btn-small btn-primary openPanel"
+                                                                data-id="{{$item->user->id}}"
+                                                                data-request_status= "{{$item->status}}"
+                                                                data-request="{{ str_pad($item->id, 4, '0', STR_PAD_LEFT) }}"
+                                                            >
+                                                                {{$status[$item->status]}}
+                                                            </button>
                                                         </td>
 
                                                     </tr>
@@ -105,61 +200,7 @@
                         </div>
 
 
-                        <div class="row match-height">
-                            <div class="col-lg-6 col-md-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4 class="card-title">Apply Coupon</h4>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="card-body">
-                                            <label class="text-muted">Enter your coupon code if you have one!</label>
-                                            <form action="#">
-                                                <div class="form-body">
-                                                    <input type="text" class="form-control" placeholder="Enter Coupon Code Here">
-                                                </div>
-                                                <div class="form-actions border-0 pb-0 text-right">
-                                                    <button type="button" class="btn btn-info">Apply Code</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4 class="card-title">Price Details</h4>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="card-body">
-                                            <div class="price-detail">Price (4 items) <span class="float-right">$2800</span></div>
-                                            <div class="price-detail">Delivery Charges <span class="float-right">$100</span></div>
-                                            <div class="price-detail">TAX / VAT <span class="float-right">$0</span></div>
-                                            <hr>
-                                            <div class="price-detail">Payable Amount <span class="float-right">$2900</span></div>
-                                            <div class="total-savings">Your Total Savings on this order $550</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <form action="#">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card">
-                                        <div class="card-content">
-                                            <div class="card-body">
-                                                <div class="text-right">
-                                                    <a href="#" class="btn btn-info mr-2">Continue Shopping</a>
-                                                    <a href="#" class="btn btn-warning">Place Order</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+
                     </div>
                     <div class="tab-pane" id="checkout-tab" aria-labelledby="checkout">
                         <div class="card">
@@ -196,7 +237,14 @@
                                                             <div class="product-price">{{$item->created_at}}</div>
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-small btn-primary">{{$status[$item->status]}}</button>
+                                                            <button
+                                                                class="btn btn-small btn-primary openPanel"
+                                                                data-id="{{$item->user->id}}"
+                                                                data-request_status= "{{$item->status}}"
+                                                                data-request="{{ str_pad($item->id, 4, '0', STR_PAD_LEFT) }}"
+                                                            >
+                                                                {{$status[$item->status]}}
+                                                            </button>
                                                         </td>
 
                                                     </tr>
@@ -292,7 +340,14 @@
                                                             <div class="product-price">{{$item->created_at}}</div>
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn-small btn-primary">{{$status[$item->status]}}</button>
+                                                            <button
+                                                                class="btn btn-small btn-primary openPanel"
+                                                                data-id="{{$item->user->id}}"
+                                                                data-request_status= "{{$item->status}}"
+                                                                data-request="{{ str_pad($item->id, 4, '0', STR_PAD_LEFT) }}"
+                                                            >
+                                                                {{$status[$item->status]}}
+                                                            </button>
                                                         </td>
                                                     </tr>
 
@@ -334,6 +389,82 @@
             ]
         });
         $('.buttons-copy, .buttons-csv, .buttons-print, .buttons-pdf, .buttons-excel').addClass('btn btn-primary mr-1');
+
+        $('.openPanel').on('click', function () {
+            let id = $(this).attr('data-id'),
+                requestID = $(this).attr('data-request'),
+                request_status = $(this).attr('data-request_status');
+
+
+            console.log()
+
+            let _token = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                type: "GET",
+                url: "/request/showStatus",
+                data: {
+                    "_token": _token,
+                    "id": id,
+                },
+                beforeSend: function(){
+                    console.log("First Clear Old Inputs");
+
+                    $('#client_name').val('');
+                    $('#client_regNo').val('');
+                    $('#client_course').val('');
+                    $('#client_email').val('');
+                    $('#client_contact').val('');
+                    $('#request_ID').val('');
+
+
+
+                    $('#pending_requests').text('');
+                    $('#approved_requests').text('');
+                    $('#denied_requests').text('');
+                    $('#pending_retrun').text('');
+                    $('#total_fines').text('');
+
+                },
+                success: function (res) {
+                    console.log(res)
+                    // toastr.success(res.success, 'SUCCESS', { positionClass: 'toast-top-right', containerId: 'toast-bottom-right', "progressBar": true });
+
+                    $('#request_id').text(`#GR${requestID}`);
+                    $('#request_ID').val(requestID);
+                    $('#request_status').val(request_status).change();
+
+
+                    $('#client_name').val(res.client.name);
+                    $('#client_regNo').val(res.client.client.reg_no);
+                    $('#client_course').val(res.client.client.course);
+                    $('#client_email').val(res.client.email);
+                    $('#client_contact').val(`+254${res.client.client.phone}`);
+                    $('#client_status').text(res.client.client.status);
+
+                    $('#pending_requests').text(res.pendingRequests);
+                    $('#approved_requests').text(res.approvedRequests);
+                    $('#denied_requests').text(res.deniedRequests);
+                    $('#pending_return').text('');
+                    $('#total_fines').text('');
+
+                    $('#details_panel').fadeIn(500);
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            });
+
+
+        })
+
+        $('#closePanel').on('click', function () {
+            let id = $(this).attr('data-id');
+
+            $('#details_panel').slideUp(500);
+
+        })
+
 
 
     })

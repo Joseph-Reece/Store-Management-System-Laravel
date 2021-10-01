@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Gear;
 use App\Models\GearRequest;
 use App\Models\IssuedGear;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,10 +33,53 @@ class GearRequestController extends Controller
         $sports = Gear::sports;
 
         $pendingRequests = GearRequest::where('status', 0)->with('gear', 'user')->orderByDesc('created_at')->get();
-        $approvedRequests = GearRequest::where('status', 1)->with('gear', 'user')->orderByDesc('created_at')->get();
+        $approvedRequests = GearRequest::where('status', 1)->where('issue_date', null)->with('gear', 'user')->orderByDesc('created_at')->get();
         $deniedRequests = GearRequest::where('status', 2)->with('gear', 'user')->orderByDesc('created_at')->get();
 
         return view('backend.Orders.request_Manager', compact('pendingRequests','status', 'sports', 'approvedRequests', 'deniedRequests'));
+    }
+
+    public function getReport(Request $request)
+    {
+        // dd();
+        $id =$request->id;
+
+        $client = User::where('id',$id)->with('gearRequest', 'client', 'issuedGear')->first();
+
+        $pendingRequests = $client->gearRequest->where('status', 0)->count();
+        $approvedRequests = $client->gearRequest->where('status', 1)->count();
+        $deniedRequests = $client->gearRequest->where('status', 2)->count();
+
+        $client->client->course = Client::courses[$client->client->course];
+        $client->client->status= Client::status[$client->client->status];
+
+        // dd($requests->where('status', 0)->count());
+        return response()->json([
+            "client" => $client,
+            "pendingRequests" => $pendingRequests,
+            "approvedRequests" => $approvedRequests,
+            "deniedRequests" => $deniedRequests,
+        ]);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        // dd($request->requestID);
+        $id = $request->requestID;
+
+        $gearRequest = GearRequest::where('id', $id)->first();
+        if ($request->has('status')) {
+            $gearRequest->update([
+                "status" => $request->status
+            ]);
+        }
+
+        $notification = [
+            'message' => 'Request Approved!!',
+            'alert-type' => 'success'
+        ];
+        return redirect()->back()->with($notification);
+
     }
 
     /**

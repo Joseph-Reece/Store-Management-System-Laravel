@@ -128,10 +128,10 @@
                             </div>
                         </div> --}}
 
-                        <!--  Pagination  -->
-                        <div class="col-12">
-                            {{ $gearRequests->onEachSide(2)->links() }}
-                        </div>
+                            <!--  Pagination  -->
+                            <div class="col-12">
+                                {{ $gearRequests->onEachSide(2)->links() }}
+                            </div>
 
                     </div>
                 </div>
