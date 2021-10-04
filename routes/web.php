@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GearController;
 use App\Http\Controllers\GearRequestController;
+use App\Http\Controllers\IssuedGearController;
 use App\Http\Controllers\MessageController;
 
 /*
@@ -65,6 +66,14 @@ Route::group(['prefix'=>'request', 'middleware' => ['auth']], function() {
 
 
 
+});
+
+//...............................Gear Issue  Routes.....................//
+Route::group(['prefix'=>'issue', 'middleware' => ['auth']], function() {
+    Route::get('/index', [IssuedGearController::class, 'index'])->name('issue.index');
+    Route::post('/store', [IssuedGearController::class, 'store'])->name('issue.store');
+    Route::put('/changeStatus{id}', [IssuedGearController::class, 'update'])->name('issue.update');
+    Route::delete('/{id}', [IssuedGearController::class, 'destroy'])->name('issue.destroy');
 });
 
 //...............................Clients Routes.....................//

@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gear;
+use App\Models\GearRequest;
 use App\Models\IssuedGear;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 
 class IssuedGearController extends Controller
@@ -15,6 +19,18 @@ class IssuedGearController extends Controller
     public function index()
     {
         //
+        $RequestStatus = GearRequest::status;
+        $status = IssuedGear::status;
+        $sports = Gear::sports;
+
+
+        $gears = GearRequest::where('status', 1)->where("issue_date", null)->get();
+        $issuedGear = IssuedGear::where('status', 0)->with('gearRequest')->get();
+        $returnedGear = IssuedGear::where('status', 1)->orWhere('status', 2)->with('gearRequest')->get();
+
+        // dd($issuedGear[0]->gearRequest);
+
+        return view('backend.Gear_Issue.index', compact('status', 'RequestStatus', 'gears', 'sports', 'issuedGear', 'returnedGear'));
     }
 
     /**
@@ -36,6 +52,40 @@ class IssuedGearController extends Controller
     public function store(Request $request)
     {
         //
+        $requestID = $request->requestID;
+        $gearRequest = GearRequest::where('id', $requestID)->first();
+
+        $due_date = Carbon::now()->addDays(7);
+
+        // dd($due_date);
+
+        if(IssuedGear::where("gear_request_id", $requestID)->doesntExist()){
+
+            $issueGear = IssuedGear::create([
+                "gear_request_id" => $requestID,
+                "status" => $request->status,
+                "due_date" => $due_date
+            ]);
+
+            $gearRequest->update([
+                "issue_date" => $issueGear->created_at
+            ]);
+
+            $notification = [
+                'message' => 'Gear Issued',
+                'alert-type' => 'success'
+            ];
+
+            return redirect()->back()->with($notification);
+        }else {
+            $notification = [
+                'message' => 'Gear already Issued',
+                'alert-type' => 'warning'
+            ];
+
+            return redirect()->back()->with($notification);
+        }
+
     }
 
     /**
@@ -67,9 +117,22 @@ class IssuedGearController extends Controller
      * @param  \App\Models\IssuedGear  $issuedGear
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, IssuedGear $issuedGear)
+    public function update(Request $request, IssuedGear $issuedGear, $id)
     {
         //
+        // dd($id);
+
+        $issue = IssuedGear::find($id);
+
+        $issue->update([
+            "status" => $request->status,
+        ]);
+
+        $notification = [
+            'message' => 'Status changed',
+            'alert-type' => 'success'
+        ];
+        return back()->with($notification);
     }
 
     /**
@@ -78,8 +141,27 @@ class IssuedGearController extends Controller
      * @param  \App\Models\IssuedGear  $issuedGear
      * @return \Illuminate\Http\Response
      */
-    public function destroy(IssuedGear $issuedGear)
+    public function destroy(IssuedGear $issuedGear, $id)
     {
-        //
+        //make issue date null on gearRequest table
+        // set status to approved on gearRequest table
+        // reset increment on gears table
+
+        $issue = $issuedGear->find($id);
+        $gearRequest = GearRequest::find($issue->gearRequest->id);
+        $gear = $gearRequest->gear;
+
+        $gearRequest -> update([
+            'issue_date' => null
+        ]);
+
+        $issuedGear->destroy($id);
+
+        $notification = [
+            'message' => 'Gear Issue Cancelled',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->back()->with($notification);
     }
 }

@@ -13,8 +13,13 @@
                     <li class="{{Request::routeIs('gear.index') ? 'active' : ''}}">
                         <a class="menu-item " href="{{route('gear.index')}}"><i class="material-icons">settings</i><span data-i18n="Manage Gear">Manage Gear</span></a>
                     </li>
+
                     <li class="{{Request::routeIs('request.adminIndex') ? 'active' : ''}}">
                         <a class="menu-item"  href="{{route('request.adminIndex')}}"><i class="material-icons">help_outline</i><span data-i18n="Gear Requests">Gear Requests</span></a>
+                    </li>
+
+                    <li class="{{Request::routeIs('issue.index') ? 'active' : ''}}">
+                        <a class="menu-item"  href="{{route('issue.index')}}"><i class="material-icons">help_outline</i><span data-i18n="Gear Requests">Gear Issue</span></a>
                     </li>
                 </ul>
             </li>

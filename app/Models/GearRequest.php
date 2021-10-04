@@ -11,7 +11,8 @@ class GearRequest extends Model
     use HasFactory;
 
     protected $fillable =[
-        'status'
+        'status',
+        'issue_date'
     ];
 
     const status =[

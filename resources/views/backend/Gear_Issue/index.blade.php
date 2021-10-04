@@ -8,25 +8,23 @@
         <div class="content-header-light col-12">
             <div class="row">
                 <div class="content-header-left col-md-9 col-12 mb-2">
-                    <h3 class="content-header-title">Request Manager</h3>
+                    <h3 class="content-header-title">Gear Issue</h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html">Home</a>
                                 </li>
-                                <li class="breadcrumb-item active">Request manager
+                                <li class="breadcrumb-item active">Issue manager
                                 </li>
                             </ol>
                         </div>
                     </div>
                 </div>
                 <div class="content-header-right col-md-3 col-12">
-                    {{-- <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown">
-                        <button class="btn btn-primary round dropdown-toggle dropdown-menu-right box-shadow-2 px-2 mb-1" id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action</button>
-                        <div class="dropdown-menu"><a class="dropdown-item" href="component-alerts.html"> Alerts</a><a class="dropdown-item" href="material-component-cards.html"> Cards</a><a class="dropdown-item" href="component-progress.html"> Progress</a>
-                            <div class="dropdown-divider"></div><a class="dropdown-item" href="register-with-bg-image.html"> Register</a>
-                        </div>
-                    </div> --}}
+                    <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown">
+                        <button class="btn btn-secondary box-shadow-2 px-2 mb-1" id="btnGroupDrop1" type="button" > <span class="la la-chevron-left"></span> Requests</button>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -94,7 +92,7 @@
                             </div>
                         </div>
                     </div>
-                    <form action="{{route('request.changeStatus')}}" class="form" method="POST">
+                    <form action="{{route('issue.store')}}" class="form" method="POST" id="issue_form">
                         @csrf
                         <div class="row">
                             <div class="col-12">
@@ -102,17 +100,19 @@
                                     <div class="card-content">
                                         <div class="card-body">
                                             <input type="hidden" name="requestID" id="request_ID">
-                                            <div class="col-md-6">
-                                                <select name="status" id="request_status" class="select2 form-control select">
+                                            <input type="hidden" name="issue_id" id="issue_id">
+                                            <div class="col-md-3 my-2">
+                                                <label for="issue_status">Status</label>
+                                                <select name="status" id="issue_status" class="select2 form-control select col-md-3">
 
                                                     @foreach ($status as $key => $value)
                                                         <option value="{{$key}}">{{$value}} </option>
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <div class="text-right">
+                                            <div class="text-left">
                                                 <a href="#" id="closePanel" class="btn btn-info mr-2">Close Panel</a>
-                                                <button type="submit" class="btn btn-warning">Approve Request</button>
+                                                <button type="submit" class="btn btn-warning">Change Status</button>
                                             </div>
                                         </div>
                                     </div>
@@ -125,13 +125,13 @@
 
                 <ul class="nav nav-tabs nav-justified">
                     <li class="nav-item">
-                        <a class="nav-link active" id="shopping-cart" data-toggle="tab" aria-controls="shop-cart-tab" href="#shop-cart-tab" aria-expanded="true">Pending</a>
+                        <a class="nav-link active" id="shopping-cart" data-toggle="tab" aria-controls="shop-cart-tab" href="#shop-cart-tab" aria-expanded="true">Approved</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="checkout" data-toggle="tab" aria-controls="checkout-tab" href="#checkout-tab" aria-expanded="false">Approved</a>
+                        <a class="nav-link" id="checkout" data-toggle="tab" aria-controls="checkout-tab" href="#checkout-tab" aria-expanded="false">Due</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " id="complete-order" data-toggle="tab" aria-controls="comp-order-tab" href="#comp-order-tab" aria-expanded="false">Denied</a>
+                        <a class="nav-link " id="complete-order" data-toggle="tab" aria-controls="comp-order-tab" href="#comp-order-tab" aria-expanded="false">Returned</a>
                     </li>
                 </ul>
                 <div class="tab-content pt-1">
@@ -151,7 +151,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($pendingRequests as $item)
+                                                @foreach ($gears as $item)
                                                     <tr>
                                                         <td>
                                                             <div class="product-img d-flex align-items-center">
@@ -167,16 +167,17 @@
                                                             <div class="product-price">#GR{{ str_pad($item->id, 4, '0', STR_PAD_LEFT) }}</div>
                                                         </td>
                                                         <td>
-                                                            <div class="product-price">{{$item->created_at}}</div>
+                                                            <div class="product-price">{{$item->created_at->diffForHumans()}}</div>
                                                         </td>
                                                         <td>
                                                             <button
                                                                 class="btn btn-small btn-primary openPanel"
                                                                 data-id="{{$item->user->id}}"
+                                                                data-issue_id ="{{$item->id}}"
                                                                 data-request_status= "{{$item->status}}"
                                                                 data-request="{{ str_pad($item->id, 4, '0', STR_PAD_LEFT) }}"
                                                             >
-                                                                {{$status[$item->status]}}
+                                                                {{$RequestStatus[$item->status]}}
                                                             </button>
                                                         </td>
 
@@ -213,12 +214,13 @@
                                                     <th>Gear</th>
                                                     <th>Details</th>
                                                     <th>Request ID</th>
-                                                    <th>Date</th>
-                                                    <th>Status</th>
+                                                    <th> Due Date</th>
+                                                    <th width="150px">Status</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($approvedRequests as $item)
+                                                @foreach ($issuedGear as $item)
                                                     <tr>
                                                         <td>
                                                             <div class="product-img d-flex align-items-center">
@@ -226,25 +228,45 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <div class="product-title">{{$item->user->name}}</div>
-                                                            <div class="product-color"><strong>Gear Name : </strong> {{$item->gear->name}}</div>
-                                                            <div class="product-size"><strong>Sport : </strong>{{$sports[$item->gear->sport]}}</div>
+                                                            <div class="product-title">{{$item->gearRequest->user->name}}</div>
+                                                            <div class="product-color"><strong>Gear Name : </strong> {{$item->gearRequest->gear->name}}</div>
+                                                            <div class="product-size"><strong>Sport : </strong>{{$sports[$item->gearRequest->gear->sport]}}</div>
                                                         </td>
                                                         <td>
-                                                            <div class="product-price">#GR{{ str_pad($item->id, 4, '0', STR_PAD_LEFT) }}</div>
+                                                            <div class="product-price">#GR{{ str_pad($item->gearRequest->id, 4, '0', STR_PAD_LEFT) }}</div>
                                                         </td>
                                                         <td>
-                                                            <div class="product-price">{{$item->created_at}}</div>
+                                                            <div class="product-price">{{Carbon\Carbon::create($item->due_date)->diffForHumans()}}</div>
+                                                            {{-- <div class="product-price">{{$item->due_date}}</div> --}}
                                                         </td>
                                                         <td>
-                                                            <button
-                                                                class="btn btn-small btn-primary openPanel"
-                                                                data-id="{{$item->user->id}}"
-                                                                data-request_status= "{{$item->status}}"
-                                                                data-request="{{ str_pad($item->id, 4, '0', STR_PAD_LEFT) }}"
-                                                            >
-                                                                {{$status[$item->status]}}
-                                                            </button>
+                                                            <form action="{{route('issue.update', $item->id)}}" method="post">
+                                                                @method('PUT')
+                                                                @csrf
+                                                                <fieldset>
+                                                                    <div class="input-group">
+                                                                        <div class="input">
+
+                                                                            <select name="status"  class="select2 form-control select ">
+
+                                                                                @foreach ($status as $key => $value)
+                                                                                    <option value="{{$key}}" {{($item->status == $key )? 'selected':''}}>{{$value}} </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="input-group-append">
+                                                                            <button class="btn btn-primary" type="submit">Go</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </form>
+                                                        </td>
+                                                        <td>
+                                                            <form action="{{route('issue.destroy', $item->id)}}" method="post">
+                                                                @method("DELETE")
+                                                                @csrf
+                                                                <button type="submit" class="btn btn-outline-danger btn-small my-1"><i class="la la-trash"></i></button>
+                                                            </form>
                                                         </td>
 
                                                     </tr>
@@ -256,8 +278,9 @@
                                                     <th>Gear</th>
                                                     <th>Details</th>
                                                     <th>Request ID</th>
-                                                    <th>Date</th>
-                                                    <th>Status</th>
+                                                    <th>Due Date</th>
+                                                    <th width="150px" >Status</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -282,7 +305,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($deniedRequests as $item)
+                                                @foreach ($returnedGear as $item)
                                                     <tr>
                                                         <td>
                                                             <div class="product-img d-flex align-items-center">
@@ -290,25 +313,36 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <div class="product-title">{{$item->user->name}}</div>
-                                                            <div class="product-color"><strong>Gear Name : </strong> {{$item->gear->name}}</div>
-                                                            <div class="product-size"><strong>Sport : </strong>{{$sports[$item->gear->sport]}}</div>
+                                                            <div class="product-title">{{$item->gearRequest->user->name}}</div>
+                                                            <div class="product-color"><strong>Gear Name : </strong> {{$item->gearRequest->gear->name}}</div>
+                                                            <div class="product-size"><strong>Sport : </strong>{{$sports[$item->gearRequest->gear->sport]}}</div>
                                                         </td>
                                                         <td>
-                                                            <div class="product-price">#GR{{ str_pad($item->id, 4, '0', STR_PAD_LEFT) }}</div>
+                                                            <div class="product-price">#GR{{ str_pad($item->gearRequest->id, 4, '0', STR_PAD_LEFT) }}</div>
                                                         </td>
                                                         <td>
-                                                            <div class="product-price">{{$item->created_at}}</div>
+                                                            <div class="product-price">{{$item->updated_at}}</div>
                                                         </td>
-                                                        <td>
-                                                            <button
-                                                                class="btn btn-small btn-primary openPanel"
-                                                                data-id="{{$item->user->id}}"
-                                                                data-request_status= "{{$item->status}}"
-                                                                data-request="{{ str_pad($item->id, 4, '0', STR_PAD_LEFT) }}"
-                                                            >
-                                                                {{$status[$item->status]}}
-                                                            </button>
+                                                        <td class="align-center">
+                                                            <form action="{{route('issue.update', $item->id)}}" method="post">
+                                                                @method('PUT')
+                                                                @csrf
+                                                                <fieldset>
+                                                                    <div class="input-group">
+                                                                        <div class="input">
+
+                                                                            <select name="status"  class="select2 form-control select ">
+
+                                                                                @foreach ($status as $key => $value)
+                                                                                    <option value="{{$key}}" {{($item->status == $key )? 'selected':''}}>{{$value}} </option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="input-group-append">
+                                                                            <button class="btn btn-primary" type="submit">Go</button>
+                                                                        </div>
+                                                                    </div>
+                                                            </form>
                                                         </td>
                                                     </tr>
 
@@ -354,6 +388,7 @@
         $('.openPanel').on('click', function () {
             let id = $(this).attr('data-id'),
                 requestID = $(this).attr('data-request'),
+                issue_id = $(this).attr('data-issue_id'),
                 request_status = $(this).attr('data-request_status');
 
 
@@ -393,7 +428,8 @@
 
                     $('#request_id').text(`#GR${requestID}`);
                     $('#request_ID').val(requestID);
-                    $('#request_status').val(request_status).change();
+                    $('#issue_id').val(issue_id);
+                    $('#issue_status').val(request_status).change();
 
 
                     $('#client_name').val(res.client.name);

@@ -10,10 +10,16 @@ class IssuedGear extends Model
 {
     use HasFactory;
 
+    protected $fillable =[
+        'gear_request_id',
+        'status',
+        'due_date'
+    ];
+
     const status = [
         'DUE',
-        'RETURNED',
-        'OVERDUE',
+        'RETURNED No Damage',
+        'RETURNED WITH DAMAGE',
         'LOST',
     ];
 
