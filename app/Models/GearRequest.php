@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class GearRequest extends Model
 {
@@ -39,5 +40,15 @@ class GearRequest extends Model
     public function gear(): BelongsTo
     {
         return $this->belongsTo(Gear::class);
+    }
+
+    /**
+     * Get the issued_gear associated with the GearRequest
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function issued_gear(): HasOne
+    {
+        return $this->hasOne(IssuedGear::class);
     }
 }

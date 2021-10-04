@@ -106,4 +106,13 @@ class User extends Authenticatable
         return $this->hasMany(Chat::class,'recipient_id');
     }
 
+    /**
+     * Get all of the issued_gear for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function issued_gear(): HasManyThrough
+    {
+        return $this->hasManyThrough(IssuedGear::class, GearRequest::class);
+    }
 }

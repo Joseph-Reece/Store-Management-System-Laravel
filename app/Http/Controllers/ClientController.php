@@ -26,9 +26,10 @@ class ClientController extends Controller
     public function index()
     {
         //
-        $data = User::role('student')->get();
+        $data = User::role('student')->with('client')->get();
+        $status = Client::status;
 
-        return view('backend.Clients.index', compact('data'));
+        return view('backend.Clients.index', compact('data', 'status'));
     }
 
     /**
@@ -58,9 +59,41 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $Client
      * @return \Illuminate\Http\Response
      */
-    public function show(Client $Client)
+    public function show(Request $request)
     {
         //
+        $id = $request->id;
+
+        $client = User::where('id',$id)->with('gearRequest', 'client', 'issuedGear')->first();
+
+        $requests = $client->gearRequest;
+        $pendingRequests = $client->gearRequest->where('status', 0)->count();
+        $approvedRequests = $client->gearRequest->where('status', 1)->count();
+        $deniedRequests = $client->gearRequest->where('status', 2)->count();
+        // dd();
+
+        $issued_gear = $client->issued_gear;
+        $pending_return = $issued_gear->where('status', 0)->count();
+        $returned_gear = $issued_gear->where('status', 1 || 2)->count();
+        $lost_gear = $issued_gear->where('status', 3)->count();
+
+        $client->client->course = Client::courses[$client->client->course];
+        $client->client->status= Client::status[$client->client->status];
+
+
+        // dd($requests->where('status', 0)->count());
+        return response()->json([
+            "client" => $client,
+            "issued_gear" => $issued_gear->count(),
+            "pending_return" => $pending_return,
+            "returned_gear" => $returned_gear,
+            "lost_gear" => $lost_gear,
+            "total_requests" => $requests->count(),
+            "pendingRequests" => $pendingRequests,
+            "approvedRequests" => $approvedRequests,
+            "deniedRequests" => $deniedRequests,
+        ]);
+
     }
 
     /**
@@ -128,10 +161,28 @@ class ClientController extends Controller
         $user->update($input);
         // dd($user);
 
-        $notification = array(
+        $notification = [
             'message' => 'User Updated successfully',
             'alert-type' => 'success'
-        );
+        ];
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function updateStatus(Request $request)
+    {
+
+        $client = Client::find($request->id);
+        // dd($client);
+
+        $client -> update([
+            "status" => $request->status
+        ]);
+
+        $notification = [
+            'message' => 'Status Changed successfully',
+            'alert-type' => 'success'
+        ];
 
         return redirect()->back()->with($notification);
     }

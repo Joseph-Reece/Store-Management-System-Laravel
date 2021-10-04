@@ -63,9 +63,6 @@ Route::group(['prefix'=>'request', 'middleware' => ['auth']], function() {
 
     // Search
     Route::post('/search', [GearRequestController::class, 'search'])->name('request.search');
-
-
-
 });
 
 //...............................Gear Issue  Routes.....................//
@@ -82,6 +79,9 @@ Route::group(['prefix'=>'clients', 'middleware' => ['auth']], function() {
     Route::get('/edit', [ClientController::class, 'edit'])->name('clients.edit');
     Route::put('/edit{id}', [ClientController::class, 'update'])->name('client.update');
     Route::put('/update{id}', [ClientController::class, 'updateUser'])->name('clientUser.update');
+
+    Route::get('/show', [ClientController::class, 'show'])->name('clients.show');
+    Route::post('/status', [ClientController::class, 'updateStatus'])->name('clientUser.updateStatus');
 });
 
 //...............................Chat Module Routes.....................//
