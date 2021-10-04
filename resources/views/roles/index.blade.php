@@ -1,34 +1,37 @@
 @extends('layouts.app')
 @section('content')
     <div class="app-content content">
-        <div class="content-overlay"></div>
-        <div class="content-wrapper">
-            <div class="content-header row">
-                <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title">Roles</h3>
-                    <div class="row breadcrumbs-top">
-                        <div class="breadcrumb-wrapper col-12">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a>
-                                </li>
-                                <li class="breadcrumb-item"><a href="#">User Management</a>
-                                </li>
-                                <li class="breadcrumb-item"><a href="#">Roles</a>
-                                </li>
-                                <li class="breadcrumb-item active">All Roles
-                                </li>
-                            </ol>
+        <div class="content-header row">
+            <div class="content-header-light col-12">
+                <div class="row">
+                    <div class="content-header-left col-md-9 col-12 mb-2">
+                        <h3 class="content-header-title">Roles</h3>
+                        <div class="row breadcrumbs-top">
+                            <div class="breadcrumb-wrapper col-12">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#">User Management</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#">Roles</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">All Roles
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-header-right col-md-3 col-12">
+                        <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown">
+                            <button class="btn btn-info round  box-shadow-2 px-2 mb-1" id="addRole" ><i class="ft-plus icon-left"></i> Add Roles</button>
+
                         </div>
                     </div>
                 </div>
-                <div class="content-header-right col-md-6 col-12">
-                    <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown">
-                        <button class="btn btn-info round  box-shadow-2 px-2 mb-1" id="addRole" ><i class="ft-plus icon-left"></i> Add Roles</button>
-
-                    </div>
-                </div>
-
             </div>
+        </div>
+        <div class="content-overlay"></div>
+        <div class="content-wrapper">
             <div class="content-body">
                 <section id="file-export">
                     <div class="row">
@@ -121,7 +124,7 @@
                             <div class="form-group">
                                 <label for="roles">Permissions</label>
                                 <div class=" row row-cols-1 row-col-md-2 g-4 ">
-                                    
+
                                     @foreach ( $permission as $value )
                                     <fieldset class="checkboxsas">
                                         <label>
