@@ -17,9 +17,11 @@ class GearRequestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        // dd($request->all());
+
         $user = Auth::user();
         $status = GearRequest::status;
         $gearRequests = GearRequest::where('user_id', $user->id)->with('gear')->orderByDesc('created_at')->paginate(5);

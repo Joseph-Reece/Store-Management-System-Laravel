@@ -5,24 +5,29 @@
 @section('content')
 
     <div class="app-content content  content-detached-left-sidebar">
+
         <div class="content-header row">
-            <div class="content-header-left col-md-6 col-12 mb-2">
-                <h3 class="content-header-title">Request</h3>
-                <div class="row breadcrumbs-top">
-                    <div class="breadcrumb-wrapper col-12">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a>
-                            </li>
-                            <li class="breadcrumb-item active">Request management
-                            </li>
-                        </ol>
+            <div class="content-header-light col-12">
+                <div class="row">
+                    <div class="content-header-left col-md-9 col-12 mb-2">
+                        <h3 class="content-header-title">Request</h3>
+                        <div class="row breadcrumbs-top">
+                            <div class="breadcrumb-wrapper col-12">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Request Management
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-header-right col-md-3 col-12">
                     </div>
                 </div>
             </div>
-            <div class="content-header-right col-md-6 col-12">
-            </div>
-
         </div>
+
         <div class="content-overlay"></div>
         <div class="content-wrapper">
             <div class="content-detached content-right">

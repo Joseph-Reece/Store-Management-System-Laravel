@@ -52,4 +52,6 @@ class GearRequest extends Model
     {
         return $this->hasOne(IssuedGear::class);
     }
+
+    
 }

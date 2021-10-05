@@ -1,26 +1,29 @@
 @extends('layouts.app')
 @section('content')
     <div class="app-content content ecommerce-cart content-head-image">
-        <div class="content-overlay"></div>
-        <div class="content-wrapper">
-            <div class="content-header row">
-                <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title">Gear Requests</h3>
-                    <div class="row breadcrumbs-top">
-                        <div class="breadcrumb-wrapper col-12">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a>
-                                </li>
-                                <li class="breadcrumb-item active">Request management
-                                </li>
-                            </ol>
+        <div class="content-header row">
+            <div class="content-header-light col-12">
+                <div class="row">
+                    <div class="content-header-left col-md-9 col-12 mb-2">
+                        <h3 class="content-header-title">Gear Requests</h3>
+                        <div class="row breadcrumbs-top">
+                            <div class="breadcrumb-wrapper col-12">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Request Management
+                                    </li>
+                                </ol>
+                            </div>
                         </div>
                     </div>
+                    <div class="content-header-right col-md-3 col-12">
+                    </div>
                 </div>
-                <div class="content-header-right col-md-6 col-12">
-                </div>
-
             </div>
+        </div>
+        <div class="content-overlay"></div>
+        <div class="content-wrapper">
             <div class="content-body">
                 <div class="row shopping-cart">
                     <div class="col-12 ">
@@ -28,6 +31,35 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="mb-0"><strong>My Requests</strong></h4>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <form action="{{route('request.index')}}" method="get">
+                                    @method('GET')
+                                    @csrf
+                                    <h4 class="mb-0"><strong>Filter</strong></h4>
+                                    <fieldset>
+                                        <div class="input-group">
+                                            <div class="input">
+
+                                                <select name="status"  class="select2 form-control select ">
+
+                                                    @foreach ($status as $key => $value)
+                                                        <option value="{{$key}}" >{{$value}} </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="submit">Go</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                    </form>
+                                </div>
                             </div>
                         </div>
 
@@ -39,13 +71,14 @@
                                     <a href="#" class="btn btn-info">#GR{{ str_pad($item->id, 4, '0', STR_PAD_LEFT) }}</a>
                                 </div>
                                 <div class="float-right">
-                                    {{-- <a href="#" class="btn btn-outline-info mr-1"><i class="la la-question"></i> Need
-                                        Help</a> --}}
-                                        <form action="{{route('request.destroy', $item->id)}}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit" class="btn btn-outline-info" ><i class="la la-map-marker"></i> Cancel Request</button>
-                                        </form>
+                                   @if ($item->status == 0)
+                                    <form action="{{route('request.destroy', $item->id)}}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="btn btn-outline-info" ><i class="la la-map-marker"></i> Cancel Request</button>
+                                    </form>
+
+                                   @endif
                                 </div>
                             </div>
                             <div class="card-content">
