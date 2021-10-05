@@ -19,7 +19,8 @@ class GearRequest extends Model
     const status =[
         'PENDING',
         'APPROVED',
-        'DENIED'
+        'DENIED',
+        'ISSUED'
     ];
 
     /**

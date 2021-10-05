@@ -41,4 +41,14 @@ class Client extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get all of the gearRequests for the Client
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function gearRequests(): HasManyThrough
+    {
+        return $this->hasManyThrough(GearRequest::class, User::class);
+    }
 }

@@ -68,7 +68,8 @@ class IssuedGearController extends Controller
             ]);
 
             $gearRequest->update([
-                "issue_date" => $issueGear->created_at
+                "issue_date" => $issueGear->created_at,
+                "status" => 3
             ]);
 
             $notification = [

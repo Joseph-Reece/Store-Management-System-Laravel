@@ -64,7 +64,6 @@ class GearRequestController extends Controller
 
     public function changeStatus(Request $request)
     {
-        // dd($request->requestID);
         $id = $request->requestID;
 
         $gearRequest = GearRequest::where('id', $id)->first();
