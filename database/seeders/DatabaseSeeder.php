@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // UserSeeder::class,
             // MessageSeeder::class,
-            ChatSeeder::class
+            // ChatSeeder::class
+            CreateAdminUserSeeder::class,
+            PermissionTableSeeder::class
         ]);
     }
 }
