@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
             // UserSeeder::class,
             // MessageSeeder::class,
             // ChatSeeder::class
-            CreateAdminUserSeeder::class,
-            PermissionTableSeeder::class
+            PermissionTableSeeder::class,
+            CreateAdminUserSeeder::class
         ]);
     }
 }
