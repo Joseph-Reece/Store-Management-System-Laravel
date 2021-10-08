@@ -33,11 +33,11 @@
 
                     <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="mr-1 user-name text-bold-700">{{Auth::user()->name}}</span><span class="avatar avatar-online"><img src="/app-assets/images/portrait/small/avatar-s-19.png" alt="avatar"><i></i></span></a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            @can('request-create')
+                            @role('Student')
                             <a class="dropdown-item" href="{{route('clients.edit')}}"><i class="material-icons">person_outline</i> Edit Profile</a>
                             <div class="dropdown-divider"></div>
 
-                            @endcan
+                            @endrole
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i class="material-icons">power_settings_new</i> Logout</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

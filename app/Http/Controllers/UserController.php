@@ -17,6 +17,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // 
     public function index(Request $request)
     {
         $data = User::with('roles')->get();

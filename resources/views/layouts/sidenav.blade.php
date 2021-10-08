@@ -36,12 +36,15 @@
             <li class=" nav-item {{Request::routeIs('request.index') ? 'active' : ''}}  " >
                 <a href="{{route('request.index')}}"><i class="material-icons">playlist_add_check</i><span class="menu-title" data-i18n="Calendar">My Requests</span></a>
             </li>
-            @endrole
-
-
             <li class=" nav-item "><a href=""><i class="material-icons">playlist_add_check</i><span class="menu-title" data-i18n="Calendar">Reports</span></a>
             </li>
+            <li class=" nav-item "><a href="{{route('chat')}}"><i class="material-icons">chat</i><span class="menu-title" data-i18n="Chat">chat</span></a>
+            </li>
+            @endrole
+
             @role('Admin')
+            <li class=" nav-item "><a href=""><i class="material-icons">playlist_add_check</i><span class="menu-title" data-i18n="Calendar">Reports</span></a>
+            </li>
 
             <li><a class="menu-item" href="#"><i class="material-icons">people_outline</i><span data-i18n="Users">User Management</span></a>
                 <ul class="menu-content">
@@ -51,10 +54,11 @@
                     </li>
                 </ul>
             </li>
-
-            @endrole
             <li class=" nav-item "><a href="{{route('chat')}}"><i class="material-icons">chat</i><span class="menu-title" data-i18n="Chat">chat</span></a>
             </li>
+
+            @endrole
+
 
 
         </ul>

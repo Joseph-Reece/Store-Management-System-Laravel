@@ -93,6 +93,9 @@ class DashboardController extends Controller
                 'newRegistrations' => $newRegistrations,
             ]
             );
+        } else {
+
+            return view('welcome');
         }
     }
 }

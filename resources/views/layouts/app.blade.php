@@ -54,6 +54,7 @@
     <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/ecommerce-shop.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/forms/checkboxes-radios.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/dropzone.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/core/colors/palette-callout.css">
 
 
     <!-- END: Page CSS-->
