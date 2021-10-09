@@ -72,7 +72,7 @@
                                                 <div class="form-group">
                                                     <label for="roles">Roles</label>
                                                     <select class="select2 form-control block" id="roles"
-                                                        name="roles[]" multiple="multiple">
+                                                        name="roles[]" >
                                                             @foreach ($roles as $role)
                                                                 <option value={{ $role }} @if(in_array($role, $userRole )){{"selected='selected'"}}@endif >
                                                                     {{ $role }}</option>

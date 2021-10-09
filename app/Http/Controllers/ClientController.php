@@ -19,8 +19,16 @@ class ClientController extends Controller
     public function index()
     {
         //
-        $data = User::role('student')->with('client')->get();
+        $data = Client::with('user')->get();
+        // dd($users);
+
+        // foreach ($data as $key => $user) {
+        //     dd($user->status);
+        // }
+
+
         $status = Client::status;
+
 
         return view('backend.Clients.index', compact('data', 'status'));
     }

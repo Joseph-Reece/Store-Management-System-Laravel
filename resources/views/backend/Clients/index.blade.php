@@ -150,16 +150,16 @@
                                             <tbody>
                                                 @foreach ($data as $user)
                                                 <tr>
-                                                  <td>{{ $user->name }} <span class="badge badge-striped border-left-primary">{{$status[$user->client->status]}}</span></td>
-                                                  <td>{{ $user->email }}</td>
+                                                  <td>{{ $user->user->name }} <span class="badge badge-striped border-left-primary">{{$status[$user->status]}}</span></td>
+                                                  <td>{{ $user->user->email }}</td>
                                                   <td>
                                                         <a class="btn btn-info openPanel"
                                                             href="#"
                                                             id="showUser"
                                                             title="show"
-                                                            data-id="{{$user->id}}"
-                                                            data-client_status = "{{$user->client->status}}"
-                                                            data-client_id = "{{$user->client->id}}"
+                                                            data-id="{{$user->user->id}}"
+                                                            data-client_status = "{{$user->status}}"
+                                                            data-client_id = "{{$user->id}}"
 
                                                         >
                                                             Show
