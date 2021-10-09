@@ -19,7 +19,9 @@
                     </div>
                     <div class="content-header-right col-md-3 col-12">
                         <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown">
-                            <button class="btn btn-info round  box-shadow-2 px-2 mb-1" id="addGear" data-toggle="modal" data-target="#gear_info" ><i class="ft-plus icon-left"></i> Add Gear</button>
+                            <a href="{{route('gear.create')}}">
+                                <button class="btn btn-info round box-shadow-2 px-2 mb-1"  ><i class="ft-plus icon-left"></i> Add Gear</button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -62,7 +64,15 @@
                                                 @foreach ($gears as $gear)
 
                                                     <tr>
-                                                        <td>image</td>
+                                                        <td>
+                                                            <div class="order-details text-center">
+                                                                <div class="product-img d-flex align-items-center">
+                                                                    <img class="img-fluid"
+                                                                        src="/uploads/{{$gear->image}}"
+                                                                        alt="Card image cap">
+                                                                </div>
+                                                            </div>
+                                                        </td>
                                                         <td>{{ $gear->name }}</td>
                                                         <td>{{ $gear->brand }}</td>
                                                         <td>{{ $categories[$gear->category] }}</td>
@@ -71,7 +81,7 @@
                                                         <td>
                                                             <a class="btn btn-info" href="{{ route('gear.show',$gear->slug) }}">Show</a>
                                                             @can('gear-edit')
-                                                                <a class="btn btn-primary" id="editGear" href="#">Edit</a>
+                                                                <a class="btn btn-primary" id="editGear" href="{{ route('gear.edit',$gear->slug) }}">Edit</a>
                                                             @endcan
                                                             @can('gear-delete')
                                                             <form class="form" method="POST" action="{{ route('gear.destroy', $gear->id)}}" style="display: inline">
@@ -107,166 +117,4 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade text-left" id="gear_info" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel11" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-info white">
-                    <h4 class="modal-title white" id="myModalLabel11">Add Gear</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form class="form" method="POST" action="{{ route('gear.store') }}">
-                        <input type="hidden" id="add_location_method" name="_method" value="POST">
-                        @csrf
-                        <div class="form-body">
-                            <div class="col-md-6">
-
-                                <div class="form-group">
-                                    <label for="name">Gear Image</label>
-                                    <input type="file" id="image" class="form-control" name="image">
-                                </div>
-                            </div>
-                            <div class="row">
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input type="text" id="name" class="form-control round" name="name">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="quantity">Quantity</label>
-                                        <input type="number" id="quantity" class="form-control round" name="quantity">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="sport">Sport Name</label>
-                                        <select
-                                            class="select2 form-control block"
-                                            id="sport"
-                                            name="sport" required>
-                                            <option disabled selected>Choose one
-                                            </option>
-                                            <optgroup label="Sports List">
-                                                @foreach ($sports as $key => $sport)
-                                                <option value={{$key}}> {{$sport }} </option>
-                                                @endforeach
-                                            </optgroup>
-                                        </select>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-md-6">
-
-                                    <div class="form-group">
-                                        <label for="brand">Brand</label>
-                                        <input type="text" id="brand" class="form-control round" name="brand">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="price">Price</label>
-                                        <input type="number" id="price" class="form-control round" name="price">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="category">Category</label>
-                                        <select
-                                            class="select2 form-control block"
-                                            id="category"
-                                            name="category" required>
-                                            <option disabled selected>Choose one
-                                            </option>
-                                            <optgroup label="Categories">
-                                                @foreach ($categories as $key => $category)
-                                                <option value={{$key}}> {{$category }} </option>
-                                                @endforeach
-                                            </optgroup>
-                                        </select>
-                                    </div>
-
-
-                                </div>
-                            </div>
-
-
-
-
-                            <div class="form-actions">
-                                <input type="hidden" name="id" id="id">
-                                <button type="button" class="btn btn-warning mr-1" data-dismiss="modal">
-                                    <i class="ft-x"></i> Cancel
-                                </button>
-                                <button type="submit" id="submit_btn" class="btn btn-primary">
-                                    <i class="la la-check-square-o"></i> Save
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    @include('backend.Gear.components.editModal')
-
-    <script src="/app-assets/js/core/libraries/jquery.min.js"></script>
-
-    <script>
-
-        /* ===================== Add Gear Toggle ============================ */
-        $(document).on("click", "#addGear", function (e) {
-           e.preventDefault();
-
-           $('#submit_btn').text("Save");
-           $('#myModalLabel11').text("Add Gear");
-
-           $('#add_location_method').val('POST');
-
-
-           $('#id').val('');
-           $('#name').val('');
-           $('#city').val('');
-           $('#town').val('');
-           $('#description').val('');
-
-            $('#sport').select2()
-            $('#category').select2()
-
-           $('#gear_info').modal('show');
-       });
-
-        /* ===================== Edit Truck Toggle ============================ */
-        $(document).on("click", "#editGear", function (e) {
-           e.preventDefault();
-
-           $('#submit_btn').text("Update");
-           $('#myModalLabel11').text("Edit Gear");
-
-
-          let id = $(this).attr('data-id'),
-               name = $(this).attr('data-name'),
-               city = $(this).attr('data-city'),
-               town = $(this).attr('data-town'),
-               description = $(this).attr('data-description');
-
-
-           $('#add_location_method').val('PUT');
-
-
-           $('#id').val(id);
-           $('#name').val(name);
-           $('#city').val(city);
-           $('#town').val(town);
-           $('#description').val(description);
-
-
-           $('#gear_edit').modal('show');
-       });
-   </script>
-
-
 @endsection

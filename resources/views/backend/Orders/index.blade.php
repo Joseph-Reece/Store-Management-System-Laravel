@@ -44,20 +44,17 @@
                         <div class="row">
                             @foreach ($gears as $gear)
                                 <div class="col-md-6 col-sm-12">
-                                    <div class="card pull-up">
+                                    <div class="card pull-up" style="height: 300px">
                                         <div class="card-content">
                                             <a href="{{route('request.show', $gear->slug)}}"
                                                 id="showGear"
-                                                {{-- data-toggle="modal"
-                                                data-target="#gear_info" --}}
                                                 data-slug="{{$gear->slug}}"
                                             >
-                                            {{-- <a href="{{route('request.show', $gear->slug)}}"> --}}
                                                 <div class="card-body p-0">
                                                     <div class="align-items-center">
                                                         <div class="badge badge-success position-absolute m-2 round">{{$categories[$gear->category]}}</div>
                                                         <img class="img-fluid rounded"
-                                                            src="../../../app-assets/images/gallery/38.png"
+                                                            src="/uploads/{{$gear->image}}"
                                                             alt="Card image cap">
                                                     </div>
                                                     <div class="row p-1">

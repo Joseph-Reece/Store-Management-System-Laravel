@@ -112,7 +112,7 @@
                                             </div>
                                             <div class="text-left">
                                                 <a href="#" id="closePanel" class="btn btn-info mr-2">Close Panel</a>
-                                                <button type="submit" class="btn btn-warning">Change Status</button>
+                                                <button type="submit" class="btn btn-warning">Approve Issue</button>
                                             </div>
                                         </div>
                                     </div>
@@ -147,7 +147,7 @@
                                                     <th>Details</th>
                                                     <th>Request ID</th>
                                                     <th>Date</th>
-                                                    <th>Status</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -155,7 +155,7 @@
                                                     <tr>
                                                         <td>
                                                             <div class="product-img d-flex align-items-center">
-                                                                <img class="img-fluid" src="../../../app-assets/images/gallery/38.png" alt="Card image cap">
+                                                                <img class="img-fluid" src="/uploads/{{$item->gear->image}}" alt="Card image cap">
                                                             </div>
                                                         </td>
                                                         <td>
@@ -177,7 +177,7 @@
                                                                 data-request_status= "{{$item->status}}"
                                                                 data-request="{{ str_pad($item->id, 4, '0', STR_PAD_LEFT) }}"
                                                             >
-                                                                {{$RequestStatus[$item->status]}}
+                                                                 Issue
                                                             </button>
                                                         </td>
 
@@ -191,7 +191,7 @@
                                                     <th>Details</th>
                                                     <th>Request ID</th>
                                                     <th>Date</th>
-                                                    <th>Status</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -224,7 +224,7 @@
                                                     <tr>
                                                         <td>
                                                             <div class="product-img d-flex align-items-center">
-                                                                <img class="img-fluid" src="../../../app-assets/images/gallery/38.png" alt="Card image cap">
+                                                                <img class="img-fluid" src="/uploads/{{$item->gearRequest->gear->image}}" alt="Card image cap">
                                                             </div>
                                                         </td>
                                                         <td>
@@ -309,7 +309,7 @@
                                                     <tr>
                                                         <td>
                                                             <div class="product-img d-flex align-items-center">
-                                                                <img class="img-fluid" src="../../../app-assets/images/gallery/38.png" alt="Card image cap">
+                                                                <img class="img-fluid" src="/uploads/{{$item->gearRequest->gear->image}}" alt="Card image cap">
                                                             </div>
                                                         </td>
                                                         <td>
@@ -429,7 +429,7 @@
                     $('#request_id').text(`#GR${requestID}`);
                     $('#request_ID').val(requestID);
                     $('#issue_id').val(issue_id);
-                    $('#issue_status').val(request_status).change();
+                    // $('#issue_status').val(request_status).change();
 
 
                     $('#client_name').val(res.client.name);

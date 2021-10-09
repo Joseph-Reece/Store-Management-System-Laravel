@@ -46,7 +46,7 @@ class GearRequestController extends Controller
         // dd();
         $id =$request->id;
 
-        $client = User::where('id',$id)->with('gearRequest', 'client', 'issuedGear')->first();
+        $client = User::where('id',$id)->with('gearRequest', 'client', 'issued_gear')->first();
 
         $pendingRequests = $client->gearRequest->where('status', 0)->count();
         $approvedRequests = $client->gearRequest->where('status', 1)->count();

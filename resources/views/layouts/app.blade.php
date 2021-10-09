@@ -25,10 +25,10 @@
 
     <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/forms/selects/select2.min.css">
 
+    {{--  <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/file-uploaders/dropzone.min.css">  --}}
     <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/tables/datatable/datatables.min.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/extensions/toastr.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/ui/prism.min.css">
-    <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/file-uploaders/dropzone.min.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/forms/icheck/icheck.css">
 
     <!-- END: Vendor CSS-->
@@ -43,6 +43,8 @@
 
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="/app-assets/css/core/menu/menu-types/material-vertical-menu.css">
+    {{--  <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/file-uploaders/dropzone.css">  --}}
+    {{--  <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/dropzone.css">  --}}
     <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/hospital.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/forms/wizard.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/pickers/daterange/daterange.css">
@@ -52,8 +54,6 @@
     <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/travel.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/ecommerce-shop.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/forms/checkboxes-radios.css">
-    <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/file-uploaders/dropzone.css">
-    <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/dropzone.css">
     <link rel="stylesheet" type="text/css" href="/app-assets/css/core/colors/palette-callout.css">
 
 
@@ -119,7 +119,6 @@
     <script src="/app-assets/vendors/js/tables/vfs_fonts.js"></script>
     <script src="/app-assets/vendors/js/tables/buttons.html5.min.js"></script>
     <script src="/app-assets/vendors/js/tables/buttons.print.min.js"></script>
-    <script src="/app-assets/vendors/js/extensions/dropzone.min.js"></script>
 
     <script src="/app-assets/vendors/js/forms/repeater/jquery.repeater.min.js"></script>
     <script src="/app-assets/vendors/js/extensions/toastr.min.js"></script>
@@ -141,7 +140,6 @@
     <script src="/app-assets/js/scripts/forms/form-repeater.js"></script>
     <script src="/app-assets/js/scripts/extensions/toastr.js"></script>
     <script src="/app-assets/js/scripts/pages/ecommerce-cart.js"></script>
-    <script src="/app-assets/js/scripts/extensions/dropzone.js"></script>
     <script src="/app-assets/vendors/js/ui/prism.min.js"></script>
     <script src="/app-assets/js/scripts/pages/app-chat.js"></script>
 

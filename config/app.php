@@ -163,8 +163,12 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /* Spatien roles and permissions */
-        
+
         Spatie\Permission\PermissionServiceProvider::class,
+
+        /* Image */
+
+		Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -232,6 +236,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        /* Image upload */
+		'Image' => 'Intervention\Image\Facades\Image'
 
     ],
 

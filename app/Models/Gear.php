@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -86,5 +87,15 @@ class Gear extends Model
     public function gearRequest(): HasMany
     {
         return $this->hasMany(GearRequest::class);
+    }
+
+    /**
+     * Get all of the issued_gear for the Gear
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function issued_gear(): HasManyThrough
+    {
+        return $this->hasManyThrough(IssuedGear::class, GearRequest::class);
     }
 }

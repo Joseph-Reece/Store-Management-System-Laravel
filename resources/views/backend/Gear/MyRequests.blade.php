@@ -34,35 +34,6 @@
                             </div>
                         </div>
 
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <form action="{{route('request.index')}}" method="get">
-                                    @method('GET')
-                                    @csrf
-                                    <h4 class="mb-0"><strong>Filter</strong></h4>
-                                    <fieldset>
-                                        <div class="input-group">
-                                            <div class="input">
-
-                                                <select name="status"  class="select2 form-control select ">
-
-                                                    @foreach ($status as $key => $value)
-                                                        <option value="{{$key}}" >{{$value}} </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="submit">Go</button>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
                         @foreach ($gearRequests as $item)
 
                         <div class="card pull-up">
@@ -87,7 +58,7 @@
                                         <div class="order-details text-center">
                                             <div class="product-img d-flex align-items-center">
                                                 <img class="img-fluid"
-                                                    src="../../../app-assets/images/gallery/38.png"
+                                                    src="/uploads/{{$item->gear->image}}"
                                                     alt="Card image cap">
                                             </div>
                                         </div>
@@ -100,7 +71,7 @@
                                         </div>
                                         <div class="order-details">
                                             <h6 class="my-0">Issue Date {{$item->issue_date ? : ''}}</h6>
-                                            <small class="text-muted">Due date</small>
+                                            <small class="text-muted">Due {{$item->issued_gear ? Carbon\Carbon::create($item->issued_gear->due_date)->diffForHumans() : ''}}</small>
                                         </div>
                                     </div>
                                 </div>

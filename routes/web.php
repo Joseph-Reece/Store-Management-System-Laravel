@@ -40,9 +40,12 @@ Route::group(['middleware' => ['auth']], function() {
 //...............................Gears Routes.....................//
 Route::group(['prefix'=>'gear', 'middleware' => ['auth']], function() {
     Route::get('/index', [GearController::class, 'index'])->name('gear.index');
+    Route::get('/create', [GearController::class, 'create'])->name('gear.create');
+    Route::get('/media', [GearController::class, 'storeMedia'])->name('gear.media');
     Route::post('/store', [GearController::class, 'store'])->name('gear.store');
     Route::get('/{slug}', [GearController::class, 'show'])->name('gear.show');
     Route::get('/edit/{slug}', [GearController::class, 'edit'])->name('gear.edit');
+    Route::put('/edit/{id}', [GearController::class, 'update'])->name('gear.update');
     Route::delete('/{id}', [GearController::class, 'destroy'])->name('gear.destroy');
 
 });

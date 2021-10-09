@@ -155,7 +155,7 @@
                                                     <tr>
                                                         <td>
                                                             <div class="product-img d-flex align-items-center">
-                                                                <img class="img-fluid" src="../../../app-assets/images/gallery/38.png" alt="Card image cap">
+                                                                <img class="img-fluid" src="/uploads/{{$item->gear->image}}" alt="Card image cap">
                                                             </div>
                                                         </td>
                                                         <td>
@@ -222,7 +222,7 @@
                                                     <tr>
                                                         <td>
                                                             <div class="product-img d-flex align-items-center">
-                                                                <img class="img-fluid" src="../../../app-assets/images/gallery/38.png" alt="Card image cap">
+                                                                <img class="img-fluid" src="/uploads/{{$item->gear->image}}" alt="Card image cap">
                                                             </div>
                                                         </td>
                                                         <td>
@@ -286,7 +286,7 @@
                                                     <tr>
                                                         <td>
                                                             <div class="product-img d-flex align-items-center">
-                                                                <img class="img-fluid" src="../../../app-assets/images/gallery/38.png" alt="Card image cap">
+                                                                <img class="img-fluid" src="/uploads/{{$item->gear->image}}" alt="Card image cap">
                                                             </div>
                                                         </td>
                                                         <td>
