@@ -41,6 +41,7 @@ class GearControllerTest extends TestCase
             'name' => 'Racket',
             'slug' => 'Racket',
             'brand'=> 'nike',
+            'image' => '123.jpg',
             'quantity'=>20,
             'price'=>100,
             'category'=>1,
@@ -60,7 +61,7 @@ class GearControllerTest extends TestCase
         $this->assertEquals('Racket', $gear->name);
         $this->assertEquals('racket', $gear->slug);
         $this->assertEquals('nike', $gear->brand);
-        $this->assertEquals(null, $gear->image);
+        $this->assertEquals('123.jpg', $gear->image);
         $this->assertEquals(20, $gear->quantity);
         $this->assertEquals(100, $gear->price);
         $this->assertEquals(1, $gear->category);

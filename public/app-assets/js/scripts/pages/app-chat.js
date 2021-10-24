@@ -104,6 +104,7 @@ $(document).ready(function () {
                     "receiver": $(this).attr('data-receiver')
                 },
                 success: function (res) {
+                    console.log(res)
 
                     $('#recipient_name').text(res.recipient.name)
 
@@ -120,8 +121,11 @@ $(document).ready(function () {
 
                         console.log(message)
 
-                        if (message.user_id == res.recipient.id) {
+                        if (message.user_id === res.recipient.id) {
                             chat_left = 'chat-left'
+                        } else {
+                            chat_left = ''
+
                         }
 
                         let chatMessage = '<div class="chat ' + chat_left + '">\

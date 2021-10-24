@@ -25,7 +25,7 @@
                         <h6>PERSONAL INFORAMTION</h6>
                         <ul class="list-unstyled mb-2">
                             <li class="mb-25">{{$user->email}}</li>
-                            <li>{{$user->client->reg_no}}</li>
+                            {{-- <li>{{$user->client->reg_no}}</li> --}}
                         </ul>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                                         <span class="avatar-status-busy"></span>
                                     </div>
                                     <div class="chat-sidebar-name">
-                                        <h6 class="mb-0">{{$chat->user->name}}</h6><span class="text-muted">Cake pie</span>
+                                        <h6 class="mb-0">{{$chat->user->name}}</h6><span class="text-muted">Student</span>
                                     </div>
                                 </div>
                             </li>

@@ -22,14 +22,15 @@ class MessageController extends Controller
         $user = Auth::user();
 
         if ($user->hasrole('Admin')){
-            $chatID = Chat::where('recipient_id', $userID)->pluck('id')->first();
-            
+            $chatID = Chat::where('user_id', $id)->pluck('id')->first();
+            // $chatID =2;
+
         } else {
 
             $chat = Chat::where([
                 ['user_id', '=', $userID],
                 ['recipient_id', '=', $id],
-                
+
             ] )->exists();
 
             if($chat == false){ // Create chat if chat does not exist
